@@ -31,11 +31,11 @@ import org.liveontologies.owlapi.proof.OWLProver;
 import org.liveontologies.protege.explanation.justification.service.JustificationComputationListener;
 import org.liveontologies.puli.InferenceJustifier;
 import org.liveontologies.puli.InferenceSet;
-import org.protege.editor.owl.OWLEditorKit;
-import org.liveontologies.puli.justifications.InterruptMonitor;
-import org.liveontologies.puli.justifications.JustificationComputation;
-import org.liveontologies.puli.justifications.ResolutionJustificationComputation;
 import org.liveontologies.puli.InferenceSets;
+import org.liveontologies.puli.justifications.InterruptMonitor;
+import org.liveontologies.puli.justifications.MinimalSubsetEnumerator;
+import org.liveontologies.puli.justifications.ResolutionJustificationComputation;
+import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.reasoner.InferenceType;
@@ -72,11 +72,11 @@ public class JustificationLogic {
 		ResolutionJustificationComputation.Factory<OWLAxiom, OWLAxiom> computationFactory = ResolutionJustificationComputation
 				.getFactory();
 		SimpleMonitor monitor = new SimpleMonitor();
-		final JustificationComputation<OWLAxiom, OWLAxiom> computation = computationFactory.create(inferenceSet,
+		final MinimalSubsetEnumerator.Factory<OWLAxiom, OWLAxiom> computation = computationFactory.create(inferenceSet,
 				justifier, monitor);
 
 		SimpleListener listener = new SimpleListener();
-		computation.enumerateJustifications(entailment, listener);
+		computation.newEnumerator(entailment).enumerate(listener);
 	}
 	
 	public void addComputationListener(JustificationComputationListener listener) {
@@ -95,10 +95,10 @@ public class JustificationLogic {
 		return isInterrupted;
 	}
 
-	private class SimpleListener implements JustificationComputation.Listener<OWLAxiom> {
+	private class SimpleListener implements MinimalSubsetEnumerator.Listener<OWLAxiom> {
 
 		@Override
-		public void newJustification(Set<OWLAxiom> justification) {
+		public void newMinimalSubset(Set<OWLAxiom> justification) {
 			for (JustificationComputationListener listener : listeners)
 				listener.foundJustification(justification);
 		}
