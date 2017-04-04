@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>org.liveontologies</groupId>
 	<artifactId>protege-proof-justification-explanation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -16,7 +16,7 @@ by its own but uses the chosen prover instead. The main functionality of this pl
 is computing justifications based on proof and providing the Protege Justification
 Explanation plug-in with them.
 	</description>
-	
+
 	<scm>
 		<connection>scm:git:https://github.com/liveontologies/${project.artifactId}.git</connection>
 		<developerConnection>scm:git:git@github.com:liveontologies/${project.artifactId}.git</developerConnection>
@@ -28,9 +28,9 @@ Explanation plug-in with them.
 		<name>Live Ontologies Project</name>
 		<url>http://liveontologies.org</url>
 	</organization>
-	
+
 	<inceptionYear>2016</inceptionYear>
-	
+
 	<developers>
 		<developer>
 			<id>yevgeny</id>
@@ -49,8 +49,8 @@ Explanation plug-in with them.
 			<email>saarus72@gmail.com</email>
 		</developer>
 	</developers>
-	
-	
+
+
 	<properties>
 		<protege.version>5.0.0</protege.version>
 		<pluginId>${project.groupId}.protege.explanation.justification.proof</pluginId>
@@ -78,7 +78,7 @@ Explanation plug-in with them.
 			</releases>
 		</repository>
 	</repositories>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>net.sourceforge.owlapi</groupId>
@@ -124,7 +124,7 @@ Explanation plug-in with them.
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
+
 	<build>
 		<resources>
 			<!-- additional resources included in jar -->
@@ -189,11 +189,9 @@ Explanation plug-in with them.
 					<instructions>
 						<Bundle-SymbolicName>${pluginId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
-						<!-- <Export-Package>${extensionId}</Export-Package>
- 						<Embed-Dependency>*;scope=!provided;scope=compile|runtime;inline=false</Embed-Dependency>
-						<Embed-Transitive>true</Embed-Transitive>
-						<Embed-Directory>target/dependency</Embed-Directory>
-						<Import-Package>*</Import-Package> -->
+						<!-- <Export-Package>${extensionId}</Export-Package> <Embed-Dependency>*;scope=!provided;scope=compile|runtime;inline=false</Embed-Dependency> 
+							<Embed-Transitive>true</Embed-Transitive> <Embed-Directory>target/dependency</Embed-Directory> 
+							<Import-Package>*</Import-Package> -->
 						<Update-Url>${update.url}/p5.update.properties</Update-Url>
 					</instructions>
 				</configuration>
@@ -428,6 +426,31 @@ Explanation plug-in with them.
 			<build>
 				<plugins>
 					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>2.7</version>
+						<executions>
+							<execution>
+								<id>copy-plugin-xml-for-eclipse</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/resources</directory>
+											<includes>
+												<include>plugin.xml</include>
+											</includes>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.felix</groupId>
 						<artifactId>maven-bundle-plugin</artifactId>
 						<extensions>true</extensions>
@@ -453,7 +476,7 @@ Explanation plug-in with them.
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<profile>
 			<id>release</id>
 			<build>
@@ -502,5 +525,5 @@ Explanation plug-in with them.
 			</build>
 		</profile>
 	</profiles>
-	
+
 </project>
