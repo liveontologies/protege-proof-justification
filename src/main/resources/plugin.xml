@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="ProverService" name="Prover Service" schema="schema/ProverService.exsd"/>
+   <extension
+         id="JustificationService"
+         point="org.liveontologies.protege.explanation.justification.JustificationService">
+      <name
+            value="Justification Service">
+      </name>
+      <class
+            value="org.liveontologies.protege.explanation.justification.proof.ProofBasedJustificationService">
+      </class>
+   </extension>
+
+</plugin>
