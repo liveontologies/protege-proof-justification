@@ -63,7 +63,7 @@ public class JustificationLogic {
 
 		prover.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 		InferenceSet<OWLAxiom> proof = prover.getProof(entailment);
-		Set<OWLAxiom> axioms = prover.getRootOntology().getAxioms(Imports.EXCLUDED);
+		Set<OWLAxiom> axioms = prover.getRootOntology().getAxioms(Imports.INCLUDED);
 		InferenceSet<OWLAxiom> inferenceSet = InferenceSets.addAssertedInferences(proof, axioms);
 
 		InferenceJustifier<OWLAxiom, ? extends Set<? extends OWLAxiom>> justifier = InferenceSets
