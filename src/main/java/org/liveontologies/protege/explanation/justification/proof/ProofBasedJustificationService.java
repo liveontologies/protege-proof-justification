@@ -22,7 +22,6 @@ package org.liveontologies.protege.explanation.justification.proof;
  * #L%
  */
 
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,29 +37,32 @@ import org.liveontologies.protege.explanation.justification.service.Justificatio
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * 
- * @author Alexander
- * Date: 10/02/2017
+ * @author Alexander Stupnikov Date: 10/02/2017
  */
 
 public class ProofBasedJustificationService extends ComputationService {
 
-	private ProverServiceManager manager;
-	private ProverSwitchPanel panel;
-	
+	private ProverServiceManager manager_;
+	private ProverSwitchPanel panel_;
+
 	@Override
-	public JustificationComputation createJustificationComputation(OWLAxiom entailment) {
-		return new JustificationComputator(entailment, getOWLEditorKit(), manager);
+	public JustificationComputation createJustificationComputation(
+			OWLAxiom entailment) {
+		return new JustificationComputator(entailment, getOWLEditorKit(),
+				manager_);
 	}
-	
+
 	public boolean canComputeJustification(OWLAxiom entailment) {
-		return manager.getServices().size() != 0;
+		return manager_.getServices().size() != 0;
 	}
 
 	@Override
 	public void initialise() throws Exception {
-		manager = new ProverServiceManager("org.liveontologies.protege.explanation.justification.proof", "ProverService");
-		panel = manager.getServices().size() == 0 ? null : new ProverSwitchPanel();
+		manager_ = new ProverServiceManager(
+				"org.liveontologies.protege.explanation.justification.proof",
+				"ProverService");
+		panel_ = manager_.getServices().size() == 0 ? null
+				: new ProverSwitchPanel();
 	}
 
 	@Override
@@ -69,43 +71,48 @@ public class ProofBasedJustificationService extends ComputationService {
 
 	@Override
 	public String getName() {
-		return "Proof Based Justification";
+		return "Proof-Based Justifications";
 	}
-	
+
 	@Override
 	public JPanel getSettingsPanel() {
-		return panel;
+		return panel_;
 	}
-	
+
 	private class ProverSwitchPanel extends JPanel {
-		
+
+		private static final long serialVersionUID = 6761454714925903936L;
+
 		public ProverSwitchPanel() {
-			Collection<ProverService> services = manager.getServices();
+			Collection<ProverService> services = manager_.getServices();
 			switch (services.size()) {
 			case 0:
 				break;
 			case 1:
-				manager.selectService(services.iterator().next());
+				manager_.selectService(services.iterator().next());
 				setLayout(new BorderLayout());
-				JLabel label = new JLabel("Using " + manager.getSelectedService() + " as a prover service");
+				JLabel label = new JLabel(
+						"Using " + manager_.getSelectedService()
+								+ " as a prover service");
 				add(label, BorderLayout.NORTH);
 				break;
 			default:
 				setLayout(new BorderLayout());
 				ProverService serviceToSelect = services.iterator().next();
 				JComboBox<ProverService> selector = new JComboBox<ProverService>();
-				for (ProverService service : services)
-				{
+				for (ProverService service : services) {
 					selector.addItem(service);
-					if (ProverServiceManager.lastChoosenServiceId == manager.getIdForService(service))
+					if (ProverServiceManager.LAST_CHOOSEN_SERVICE_ID == manager_
+							.getIdForService(service))
 						serviceToSelect = service;
 				}
 				selector.setSelectedItem(serviceToSelect);
-				manager.selectService(serviceToSelect);
+				manager_.selectService(serviceToSelect);
 				selector.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						manager.selectService((ProverService) selector.getSelectedItem());
+						manager_.selectService(
+								(ProverService) selector.getSelectedItem());
 						settingsChanged();
 					}
 				});

@@ -22,54 +22,54 @@ package org.liveontologies.protege.explanation.justification.proof;
  * #L%
  */
 
-
 import org.liveontologies.protege.explanation.justification.service.JustificationComputation;
 import org.liveontologies.protege.explanation.justification.service.JustificationComputationListener;
 import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * 
- * @author Alexander
- * Date: 10/02/2017
+ * @author Alexander Stupnikov Date: 10/02/2017
  */
 
 public class JustificationComputator extends JustificationComputation {
 
-	private boolean isInterrupted = false;
-	private OWLEditorKit kit;
-	private ProverServiceManager manager;
-	private JustificationLogic logic;
+	private final OWLEditorKit kit_;
+	private final ProverServiceManager manager_;
+	private final JustificationLogic logic_;
 
-	public JustificationComputator(OWLAxiom entailment, OWLEditorKit kit, ProverServiceManager manager) {
+	public JustificationComputator(OWLAxiom entailment, OWLEditorKit kit,
+			ProverServiceManager manager) {
 		super(entailment);
-		this.kit = kit;
-		this.manager = manager;
-		this.logic = new JustificationLogic(kit);
+		kit_ = kit;
+		manager_ = manager;
+		logic_ = new JustificationLogic();
 	}
 
 	@Override
 	public void startComputation() {
-		logic.computeProofBasedJustifications(getEntailment(), manager.getSelectedService().getProver(kit));
+		logic_.computeProofBasedJustifications(getEntailment(),
+				manager_.getSelectedService().getProver(kit_));
 	}
 
 	@Override
 	public void interruptComputation() {
-		logic.interruptComputation();
+		logic_.interruptComputation();
 	}
 
 	@Override
 	public boolean isComputationInterrupted() {
-		return logic.isComputationInterrupted();
+		return logic_.isComputationInterrupted();
 	}
 
 	@Override
-	public void addComputationListener(JustificationComputationListener listener) {
-		logic.addComputationListener(listener);
+	public void addComputationListener(
+			JustificationComputationListener listener) {
+		logic_.addComputationListener(listener);
 	}
 
 	@Override
-	public void removeComputationListener(JustificationComputationListener listener) {
-		logic.removeComputationListener(listener);
+	public void removeComputationListener(
+			JustificationComputationListener listener) {
+		logic_.removeComputationListener(listener);
 	}
 }

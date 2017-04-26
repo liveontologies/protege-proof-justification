@@ -22,15 +22,13 @@ package org.liveontologies.protege.explanation.justification.proof.service;
  * #L%
  */
 
-
 import org.eclipse.core.runtime.IExtension;
 import org.protege.editor.core.plugin.AbstractPluginLoader;
 
 /**
  * Load the available specified {@link ProverService} plugins
  *
- * @author Alexander
- * Date: 23/02/2017
+ * @author Alexander Date: 23/02/2017
  */
 
 public class ProverPluginLoader extends AbstractPluginLoader<ProverPlugin> {
@@ -38,8 +36,10 @@ public class ProverPluginLoader extends AbstractPluginLoader<ProverPlugin> {
 	/**
 	 * Constructs ProverPluginLoader
 	 * 
-	 * @param KEY	A string to specify the extension point to find plugins for
-	 * @param ID	A string to specify the extension point to find plugins for
+	 * @param KEY
+	 *            A string to specify the extension point to find plugins for
+	 * @param ID
+	 *            A string to specify the extension point to find plugins for
 	 */
 	public ProverPluginLoader(String KEY, String ID) {
 		super(KEY, ID);

@@ -22,7 +22,6 @@ package org.liveontologies.protege.explanation.justification.proof;
  * #L%
  */
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -35,36 +34,34 @@ import org.liveontologies.puli.InferenceSets;
 import org.liveontologies.puli.justifications.InterruptMonitor;
 import org.liveontologies.puli.justifications.MinimalSubsetEnumerator;
 import org.liveontologies.puli.justifications.ResolutionJustificationComputation;
-import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 
 /**
- * 
- * @author Alexander
- * Date: 13/02/2017
+ * @author Alexander Stupnikov Date: 13/02/2017
  */
 
 public class JustificationLogic {
 
-	private OWLEditorKit editorKit;
-	private List<JustificationComputationListener> listeners;
-	private boolean isInterrupted = false;
-	
-	public JustificationLogic(OWLEditorKit ek) {
-		this.editorKit = ek;
-		listeners = new ArrayList<JustificationComputationListener>();
+	private final List<JustificationComputationListener> listeners_;
+	private boolean isInterrupted_ = false;
+
+	public JustificationLogic() {
+		listeners_ = new ArrayList<JustificationComputationListener>();
 	}
 
-	public void computeProofBasedJustifications(OWLAxiom entailment, OWLProver prover) {
+	public void computeProofBasedJustifications(OWLAxiom entailment,
+			OWLProver prover) {
 		if (prover == null)
 			return;
 
 		prover.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 		InferenceSet<OWLAxiom> proof = prover.getProof(entailment);
-		Set<OWLAxiom> axioms = prover.getRootOntology().getAxioms(Imports.INCLUDED);
-		InferenceSet<OWLAxiom> inferenceSet = InferenceSets.addAssertedInferences(proof, axioms);
+		Set<OWLAxiom> axioms = prover.getRootOntology()
+				.getAxioms(Imports.INCLUDED);
+		InferenceSet<OWLAxiom> inferenceSet = InferenceSets
+				.addAssertedInferences(proof, axioms);
 
 		InferenceJustifier<OWLAxiom, ? extends Set<? extends OWLAxiom>> justifier = InferenceSets
 				.justifyAssertedInferences();
@@ -72,40 +69,43 @@ public class JustificationLogic {
 		ResolutionJustificationComputation.Factory<OWLAxiom, OWLAxiom> computationFactory = ResolutionJustificationComputation
 				.getFactory();
 		SimpleMonitor monitor = new SimpleMonitor();
-		final MinimalSubsetEnumerator.Factory<OWLAxiom, OWLAxiom> computation = computationFactory.create(inferenceSet,
-				justifier, monitor);
+		final MinimalSubsetEnumerator.Factory<OWLAxiom, OWLAxiom> computation = computationFactory
+				.create(inferenceSet, justifier, monitor);
 
 		SimpleListener listener = new SimpleListener();
 		computation.newEnumerator(entailment).enumerate(listener);
 	}
-	
-	public void addComputationListener(JustificationComputationListener listener) {
-		listeners.add(listener);
+
+	public void addComputationListener(
+			JustificationComputationListener listener) {
+		listeners_.add(listener);
 	}
 
-	public void removeComputationListener(JustificationComputationListener listener) {
-		listeners.remove(listener);
+	public void removeComputationListener(
+			JustificationComputationListener listener) {
+		listeners_.remove(listener);
 	}
-	
+
 	public void interruptComputation() {
-		isInterrupted = true;
+		isInterrupted_ = true;
 	}
 
 	public boolean isComputationInterrupted() {
-		return isInterrupted;
+		return isInterrupted_;
 	}
 
-	private class SimpleListener implements MinimalSubsetEnumerator.Listener<OWLAxiom> {
+	private class SimpleListener
+			implements MinimalSubsetEnumerator.Listener<OWLAxiom> {
 
 		@Override
 		public void newMinimalSubset(Set<OWLAxiom> justification) {
-			for (JustificationComputationListener listener : listeners)
+			for (JustificationComputationListener listener : listeners_)
 				listener.foundJustification(justification);
 		}
 	}
-	
+
 	private class SimpleMonitor implements InterruptMonitor {
-		
+
 		@Override
 		public boolean isInterrupted() {
 			return isComputationInterrupted();

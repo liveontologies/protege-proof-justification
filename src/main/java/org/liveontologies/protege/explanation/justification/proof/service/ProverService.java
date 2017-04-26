@@ -22,7 +22,6 @@ package org.liveontologies.protege.explanation.justification.proof.service;
  * #L%
  */
 
-
 import org.liveontologies.owlapi.proof.OWLProver;
 import org.protege.editor.core.plugin.ProtegePluginInstance;
 import org.protege.editor.owl.OWLEditorKit;
@@ -30,21 +29,20 @@ import org.protege.editor.owl.OWLEditorKit;
 /**
  * A skeleton for a plugin that can provide us with a prover
  * 
- * @author Alexander
- * Date: 23/02/2017
+ * @author Alexander Date: 23/02/2017
  */
 
 public abstract class ProverService implements ProtegePluginInstance {
 
-	public abstract OWLProver getProver(OWLEditorKit ek);
-	
+	public abstract OWLProver getProver(OWLEditorKit kit);
+
 	/**
 	 * Should return a name for the plugin
 	 * 
-	 * @return	the name to be displayed in available plugins list
+	 * @return the name to be displayed in available plugins list
 	 */
 	public abstract String getName();
-	
+
 	@Override
 	public String toString() {
 		return getName();

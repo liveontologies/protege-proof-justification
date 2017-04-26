@@ -22,7 +22,6 @@ package org.liveontologies.protege.explanation.justification.proof;
  * #L%
  */
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,50 +39,50 @@ import org.protege.editor.core.Disposable;
  * 
  * @author Yevgeny Kazakov
  * 
- * Date: 23/02/2017
+ *         Date: 23/02/2017
  */
 
 public class ProverServiceManager implements Disposable {
 
-	private final Collection<ProverService> services;
-	private Map<ProverService, String> serviceIds;
-	private ProverService selectedService = null;
-	public static String lastChoosenServiceId = null;
+	public static String LAST_CHOOSEN_SERVICE_ID = null;
+
+	private final Collection<ProverService> services_;
+	private final Map<ProverService, String> serviceIds_;
+	private ProverService selectedService_ = null;
 
 	public ProverServiceManager(String KEY, String ID) throws Exception {
-		this.services = new ArrayList<ProverService>();
-		this.serviceIds = new HashMap<ProverService, String>();
+		services_ = new ArrayList<ProverService>();
+		serviceIds_ = new HashMap<ProverService, String>();
 		ProverPluginLoader loader = new ProverPluginLoader(KEY, ID);
-		for (ProverPlugin plugin : loader.getPlugins())
-		{
+		for (ProverPlugin plugin : loader.getPlugins()) {
 			ProverService service = plugin.newInstance();
-			services.add(service);
-			serviceIds.put(service, plugin.getIExtension().getUniqueIdentifier());
+			services_.add(service);
+			serviceIds_.put(service,
+					plugin.getIExtension().getUniqueIdentifier());
 		}
 	}
 
 	@Override
 	public void dispose() throws Exception {
-		for (ProverService service : services) {
+		for (ProverService service : services_) {
 			service.dispose();
 		}
 	}
 
 	public Collection<ProverService> getServices() {
-		return services;
+		return services_;
 	}
-	
+
 	public ProverService getSelectedService() {
-		return selectedService;
+		return selectedService_;
 	}
-	
+
 	public void selectService(ProverService service) {
-		selectedService = service;
-		lastChoosenServiceId = getIdForService(service);
+		selectedService_ = service;
+		LAST_CHOOSEN_SERVICE_ID = getIdForService(service);
 	}
-	
-	public String getIdForService(ProverService service)
-	{
-		return serviceIds.get(service);
+
+	public String getIdForService(ProverService service) {
+		return serviceIds_.get(service);
 	}
 }

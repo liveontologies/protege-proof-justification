@@ -22,15 +22,13 @@ package org.liveontologies.protege.explanation.justification.proof.service;
  * #L%
  */
 
-
 import org.eclipse.core.runtime.IExtension;
 import org.protege.editor.core.plugin.AbstractProtegePlugin;
 
 /**
  * Instantiates the plugin which is based on specified prover service
  * 
- * @author Alexander
- * Date: 23/02/2017
+ * @author Alexander Date: 23/02/2017
  */
 
 public class ProverPlugin extends AbstractProtegePlugin<ProverService> {
@@ -38,7 +36,8 @@ public class ProverPlugin extends AbstractProtegePlugin<ProverService> {
 	/**
 	 * Constructs plugin object
 	 * 
-	 * @param extension	plugin extension
+	 * @param extension
+	 *            plugin extension
 	 */
 	public ProverPlugin(IExtension extension) {
 		super(extension);
