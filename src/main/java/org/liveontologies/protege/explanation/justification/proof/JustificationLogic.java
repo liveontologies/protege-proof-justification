@@ -29,8 +29,8 @@ import java.util.Set;
 import org.liveontologies.owlapi.proof.OWLProver;
 import org.liveontologies.protege.explanation.justification.service.JustificationComputationListener;
 import org.liveontologies.puli.InferenceJustifier;
-import org.liveontologies.puli.InferenceSet;
-import org.liveontologies.puli.InferenceSets;
+import org.liveontologies.puli.Proof;
+import org.liveontologies.puli.Proofs;
 import org.liveontologies.puli.justifications.InterruptMonitor;
 import org.liveontologies.puli.justifications.MinimalSubsetEnumerator;
 import org.liveontologies.puli.justifications.ResolutionJustificationComputation;
@@ -57,13 +57,13 @@ public class JustificationLogic {
 			return;
 
 		prover.precomputeInferences(InferenceType.CLASS_HIERARCHY);
-		InferenceSet<OWLAxiom> proof = prover.getProof(entailment);
+		Proof<OWLAxiom> proof = prover.getProof(entailment);
 		Set<OWLAxiom> axioms = prover.getRootOntology()
 				.getAxioms(Imports.INCLUDED);
-		InferenceSet<OWLAxiom> inferenceSet = InferenceSets
+		Proof<OWLAxiom> inferenceSet = Proofs
 				.addAssertedInferences(proof, axioms);
 
-		InferenceJustifier<OWLAxiom, ? extends Set<? extends OWLAxiom>> justifier = InferenceSets
+		InferenceJustifier<OWLAxiom, ? extends Set<? extends OWLAxiom>> justifier = Proofs
 				.justifyAssertedInferences();
 
 		ResolutionJustificationComputation.Factory<OWLAxiom, OWLAxiom> computationFactory = ResolutionJustificationComputation
