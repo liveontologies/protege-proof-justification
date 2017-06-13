@@ -1,5 +1,9 @@
 package org.liveontologies.protege.explanation.justification.proof.service;
 
+import java.util.Set;
+
+import org.liveontologies.puli.InferenceJustifier;
+
 /*-
  * #%L
  * Protege Proof Justification Explanation
@@ -22,9 +26,10 @@ package org.liveontologies.protege.explanation.justification.proof.service;
  * #L%
  */
 
-import org.liveontologies.owlapi.proof.OWLProver;
+import org.liveontologies.puli.Proof;
 import org.protege.editor.core.plugin.ProtegePluginInstance;
 import org.protege.editor.owl.OWLEditorKit;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * A skeleton for a plugin that can provide us with a prover
@@ -32,9 +37,13 @@ import org.protege.editor.owl.OWLEditorKit;
  * @author Alexander Date: 23/02/2017
  */
 
-public abstract class ProverService implements ProtegePluginInstance {
+public abstract class ProverService<C> implements ProtegePluginInstance {
 
-	public abstract OWLProver getProver(OWLEditorKit kit);
+	public abstract Proof<C> getProof(OWLEditorKit ek, OWLAxiom axiom);
+
+	public abstract InferenceJustifier<C, Set<? extends OWLAxiom>> getJustifier();
+
+	public abstract C convertQuery(OWLAxiom entailment);
 
 	/**
 	 * Should return a name for the plugin

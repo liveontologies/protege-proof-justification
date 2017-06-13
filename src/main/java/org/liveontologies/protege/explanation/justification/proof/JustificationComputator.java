@@ -48,7 +48,7 @@ public class JustificationComputator extends JustificationComputation {
 	@Override
 	public void startComputation() {
 		logic_.computeProofBasedJustifications(getEntailment(),
-				manager_.getSelectedService().getProver(kit_));
+				manager_.getSelectedService(), kit_);
 	}
 
 	@Override
