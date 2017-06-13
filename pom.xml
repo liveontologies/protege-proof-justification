@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.liveontologies</groupId>
-	<artifactId>protege-proof-justification-explanation</artifactId>
+	<artifactId>protege-proof-justification</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
-	<name>Protege Proof Justification Explanation</name>
+	<name>Protege Proof Justification</name>
 	<description>
 This is a plug-in that provides the Protege Justification Explanation plug-in with
 proof-based justifications by registering as an extension to its justification service.
@@ -53,7 +53,7 @@ Explanation plug-in with them.
 
 	<properties>
 		<protege.version>5.0.0</protege.version>
-		<pluginId>${project.groupId}.protege.explanation.justification.proof</pluginId>
+		<pluginId>${project.groupId}.protege.justification.proof</pluginId>
 		<extensionId>${pluginId}.service</extensionId>
 		<plugin-zip.file>
 			${project.artifactId}-${project.version}
@@ -63,7 +63,7 @@ Explanation plug-in with them.
 			${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}
 		</release.version>
 		<!-- the path to update.properties and version-info.txt for Protege auto-update -->
-		<update.url>https://raw.githubusercontent.com/liveontologies/protege-proof-justification-explanation/release</update.url>
+		<update.url>https://raw.githubusercontent.com/liveontologies/protege-proof-justification/release</update.url>
 	</properties>
 
 	<repositories>

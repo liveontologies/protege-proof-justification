@@ -1,4 +1,4 @@
-package org.liveontologies.protege.explanation.justification.proof;
+package org.liveontologies.protege.justification.proof;
 
 /*-
  * #%L
@@ -26,19 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.liveontologies.owlapi.proof.OWLProver;
-import org.liveontologies.protege.explanation.justification.proof.service.ProverService;
 import org.liveontologies.protege.explanation.justification.service.JustificationComputationListener;
-import org.liveontologies.puli.InferenceJustifier;
+import org.liveontologies.protege.justification.proof.service.ProverService;
 import org.liveontologies.puli.Proof;
-import org.liveontologies.puli.Proofs;
 import org.liveontologies.puli.justifications.InterruptMonitor;
 import org.liveontologies.puli.justifications.MinimalSubsetEnumerator;
+import org.liveontologies.puli.justifications.MinimalSubsetEnumerators;
 import org.liveontologies.puli.justifications.ResolutionJustificationComputation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.reasoner.InferenceType;
 
 /**
  * @author Alexander Stupnikov Date: 13/02/2017
@@ -53,23 +49,15 @@ public class JustificationLogic {
 		listeners_ = new ArrayList<JustificationComputationListener>();
 	}
 
-	public void computeProofBasedJustifications(OWLAxiom entailment,
-			ProverService service, OWLEditorKit kit) {
-		
-		
-		
-		Proof proof = service.getProof(kit, entailment);
+	public <C> void computeProofBasedJustifications(OWLAxiom entailment,
+			ProverService<C> service, OWLEditorKit kit) {
 
-		ResolutionJustificationComputation.Factory<OWLAxiom, OWLAxiom> computationFactory = ResolutionJustificationComputation
-				.getFactory();
+		Proof<C> proof = service.getProof(kit, entailment);
 		SimpleMonitor monitor = new SimpleMonitor();
-		final MinimalSubsetEnumerator.Factory<OWLAxiom, OWLAxiom> computation = computationFactory
-				.create(proof, service.getJustifier(), monitor);
-
 		SimpleListener listener = new SimpleListener();
-		computation.newEnumerator(entailment).enumerate(listener);
-		
-		
+		MinimalSubsetEnumerators.enumerateJustifications(
+				service.convertQuery(entailment), proof, service.getJustifier(), monitor, listener);
+
 //		prover.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 //		Proof<OWLAxiom> proof = prover.getProof(entailment);
 //		Set<OWLAxiom> axioms = prover.getRootOntology()

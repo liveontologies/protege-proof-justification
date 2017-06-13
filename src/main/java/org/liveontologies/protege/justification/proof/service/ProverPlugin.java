@@ -1,4 +1,4 @@
-package org.liveontologies.protege.explanation.justification.proof.service;
+package org.liveontologies.protege.justification.proof.service;
 
 /*-
  * #%L
@@ -23,30 +23,23 @@ package org.liveontologies.protege.explanation.justification.proof.service;
  */
 
 import org.eclipse.core.runtime.IExtension;
-import org.protege.editor.core.plugin.AbstractPluginLoader;
+import org.protege.editor.core.plugin.AbstractProtegePlugin;
 
 /**
- * Load the available specified {@link ProverService} plugins
- *
+ * Instantiates the plugin which is based on specified prover service
+ * 
  * @author Alexander Date: 23/02/2017
  */
 
-public class ProverPluginLoader extends AbstractPluginLoader<ProverPlugin> {
+public class ProverPlugin extends AbstractProtegePlugin<ProverService> {
 
 	/**
-	 * Constructs ProverPluginLoader
+	 * Constructs plugin object
 	 * 
-	 * @param KEY
-	 *            A string to specify the extension point to find plugins for
-	 * @param ID
-	 *            A string to specify the extension point to find plugins for
+	 * @param extension
+	 *            plugin extension
 	 */
-	public ProverPluginLoader(String KEY, String ID) {
-		super(KEY, ID);
-	}
-
-	@Override
-	protected ProverPlugin createInstance(IExtension extension) {
-		return new ProverPlugin(extension);
+	public ProverPlugin(IExtension extension) {
+		super(extension);
 	}
 }
