@@ -1,9 +1,5 @@
 package org.liveontologies.protege.justification.proof.service;
 
-import java.util.Set;
-
-import org.liveontologies.puli.InferenceJustifier;
-
 /*-
  * #%L
  * Protege Proof Justification Explanation
@@ -26,7 +22,6 @@ import org.liveontologies.puli.InferenceJustifier;
  * #L%
  */
 
-import org.liveontologies.puli.Proof;
 import org.protege.editor.core.plugin.ProtegePluginInstance;
 import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -39,13 +34,9 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 public abstract class ProverService<C> implements ProtegePluginInstance {
 
-	public abstract Proof<C> getProof(OWLAxiom axiom);
+	public abstract JustificationCompleteProof<C> getJustificationCompleteProof(OWLAxiom entailment);
 
-	public abstract InferenceJustifier<C, Set<? extends OWLAxiom>> getJustifier();
-
-	public abstract C convertQuery(OWLAxiom entailment);
-
-	public ProverService<C> setup(OWLEditorKit kit) {
+	ProverService<C> setup(OWLEditorKit kit) {
 		kit_ = kit;
 		return this;
 	}

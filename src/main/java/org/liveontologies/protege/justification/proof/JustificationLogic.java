@@ -27,12 +27,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.liveontologies.protege.explanation.justification.service.JustificationComputationListener;
+import org.liveontologies.protege.justification.proof.service.JustificationCompleteProof;
 import org.liveontologies.protege.justification.proof.service.ProverService;
-import org.liveontologies.puli.Proof;
 import org.liveontologies.puli.justifications.InterruptMonitor;
 import org.liveontologies.puli.justifications.MinimalSubsetEnumerator;
 import org.liveontologies.puli.justifications.MinimalSubsetEnumerators;
-import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
@@ -50,13 +49,11 @@ public class JustificationLogic {
 
 	public <C> void computeProofBasedJustifications(OWLAxiom entailment,
 			ProverService<C> service) {
-
-		Proof<C> proof = service.getProof(entailment);
+		JustificationCompleteProof<C> jcp = service.getJustificationCompleteProof(entailment);
 		SimpleMonitor monitor = new SimpleMonitor();
 		SimpleListener listener = new SimpleListener();
-		MinimalSubsetEnumerators.enumerateJustifications(
-				service.convertQuery(entailment), proof, service.getJustifier(),
-				monitor, listener);
+		MinimalSubsetEnumerators.enumerateJustifications(jcp.getGoal(), jcp,
+				jcp, monitor, listener);
 	}
 
 	public void addComputationListener(
