@@ -48,8 +48,7 @@ public class ProofBasedJustificationService extends ComputationService {
 	@Override
 	public JustificationComputation createJustificationComputation(
 			OWLAxiom entailment) {
-		return new JustificationComputator(entailment, getOWLEditorKit(),
-				manager_);
+		return new JustificationComputator(entailment, manager_);
 	}
 
 	public boolean canComputeJustification(OWLAxiom entailment) {
@@ -58,9 +57,7 @@ public class ProofBasedJustificationService extends ComputationService {
 
 	@Override
 	public void initialise() throws Exception {
-		manager_ = new ProverServiceManager(
-				"org.liveontologies.protege.justification.proof",
-				"ProverService");
+		manager_ = new ProverServiceManager(getOWLEditorKit());
 		panel_ = manager_.getServices().size() == 0 ? null
 				: new ProverSwitchPanel();
 	}

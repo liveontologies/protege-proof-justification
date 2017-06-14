@@ -31,6 +31,7 @@ import org.liveontologies.protege.justification.proof.service.ProverPlugin;
 import org.liveontologies.protege.justification.proof.service.ProverPluginLoader;
 import org.liveontologies.protege.justification.proof.service.ProverService;
 import org.protege.editor.core.Disposable;
+import org.protege.editor.owl.OWLEditorKit;
 
 /**
  * Keeps track of the available specified {@link ProverService} plugins.
@@ -50,10 +51,10 @@ public class ProverServiceManager implements Disposable {
 	private final Map<ProverService<?>, String> serviceIds_;
 	private ProverService<?> selectedService_ = null;
 
-	public ProverServiceManager(String KEY, String ID) throws Exception {
+	public ProverServiceManager(OWLEditorKit kit) throws Exception {
 		services_ = new ArrayList<ProverService<?>>();
 		serviceIds_ = new HashMap<ProverService<?>, String>();
-		ProverPluginLoader loader = new ProverPluginLoader(KEY, ID);
+		ProverPluginLoader loader = new ProverPluginLoader(kit);
 		for (ProverPlugin plugin : loader.getPlugins()) {
 			ProverService<?> service = plugin.newInstance();
 			services_.add(service);

@@ -33,14 +33,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 public class JustificationComputator extends JustificationComputation {
 
-	private final OWLEditorKit kit_;
 	private final ProverServiceManager manager_;
 	private final JustificationLogic logic_;
 
-	public JustificationComputator(OWLAxiom entailment, OWLEditorKit kit,
+	public JustificationComputator(OWLAxiom entailment,
 			ProverServiceManager manager) {
 		super(entailment);
-		kit_ = kit;
 		manager_ = manager;
 		logic_ = new JustificationLogic();
 	}
@@ -48,7 +46,7 @@ public class JustificationComputator extends JustificationComputation {
 	@Override
 	public void startComputation() {
 		logic_.computeProofBasedJustifications(getEntailment(),
-				manager_.getSelectedService(), kit_);
+				manager_.getSelectedService());
 	}
 
 	@Override

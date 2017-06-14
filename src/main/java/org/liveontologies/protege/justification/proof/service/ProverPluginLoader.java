@@ -24,6 +24,7 @@ package org.liveontologies.protege.justification.proof.service;
 
 import org.eclipse.core.runtime.IExtension;
 import org.protege.editor.core.plugin.AbstractPluginLoader;
+import org.protege.editor.owl.OWLEditorKit;
 
 /**
  * Load the available specified {@link ProverService} plugins
@@ -33,20 +34,18 @@ import org.protege.editor.core.plugin.AbstractPluginLoader;
 
 public class ProverPluginLoader extends AbstractPluginLoader<ProverPlugin> {
 
+	private final OWLEditorKit editorKit_;
+
 	/**
 	 * Constructs ProverPluginLoader
-	 * 
-	 * @param KEY
-	 *            A string to specify the extension point to find plugins for
-	 * @param ID
-	 *            A string to specify the extension point to find plugins for
 	 */
-	public ProverPluginLoader(String KEY, String ID) {
-		super(KEY, ID);
+	public ProverPluginLoader(OWLEditorKit editorKit) {
+		super(ProverPlugin.KEY, ProverPlugin.ID);
+		editorKit_ = editorKit;
 	}
 
 	@Override
 	protected ProverPlugin createInstance(IExtension extension) {
-		return new ProverPlugin(extension);
+		return new ProverPlugin(editorKit_, extension);
 	}
 }

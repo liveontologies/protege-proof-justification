@@ -24,6 +24,7 @@ package org.liveontologies.protege.justification.proof.service;
 
 import org.eclipse.core.runtime.IExtension;
 import org.protege.editor.core.plugin.AbstractProtegePlugin;
+import org.protege.editor.owl.OWLEditorKit;
 
 /**
  * Instantiates the plugin which is based on specified prover service
@@ -31,7 +32,12 @@ import org.protege.editor.core.plugin.AbstractProtegePlugin;
  * @author Alexander Date: 23/02/2017
  */
 
-public class ProverPlugin extends AbstractProtegePlugin<ProverService> {
+public class ProverPlugin extends AbstractProtegePlugin<ProverService<?>> {
+
+	public static final String KEY = "org.liveontologies.protege.justification.proof";
+	public static final String ID = "ProverService";
+
+	private final OWLEditorKit editorKit_;
 
 	/**
 	 * Constructs plugin object
@@ -39,7 +45,14 @@ public class ProverPlugin extends AbstractProtegePlugin<ProverService> {
 	 * @param extension
 	 *            plugin extension
 	 */
-	public ProverPlugin(IExtension extension) {
+	public ProverPlugin(OWLEditorKit editorKit, IExtension extension) {
 		super(extension);
+		editorKit_ = editorKit;
+	}
+
+	@Override
+	public ProverService<?> newInstance() throws ClassNotFoundException,
+			IllegalAccessException, InstantiationException {
+		return super.newInstance().setup(editorKit_);
 	}
 }

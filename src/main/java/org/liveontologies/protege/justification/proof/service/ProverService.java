@@ -39,11 +39,22 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 public abstract class ProverService<C> implements ProtegePluginInstance {
 
-	public abstract Proof<C> getProof(OWLEditorKit ek, OWLAxiom axiom);
+	public abstract Proof<C> getProof(OWLAxiom axiom);
 
 	public abstract InferenceJustifier<C, Set<? extends OWLAxiom>> getJustifier();
 
 	public abstract C convertQuery(OWLAxiom entailment);
+
+	public ProverService<C> setup(OWLEditorKit kit) {
+		kit_ = kit;
+		return this;
+	}
+
+	private OWLEditorKit kit_;
+
+	public OWLEditorKit getEditorKit() {
+		return kit_;
+	}
 
 	/**
 	 * Should return a name for the plugin
