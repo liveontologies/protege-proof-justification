@@ -1,5 +1,5 @@
 The Live Ontologies Project team is pleased to announce 
-        the Protege Proof Justification Explanation 0.0.1 release!
+        the Protege Proof Justification 0.0.1 release!
 
 This is a plug-in that provides the Protege Justification Explanation plug-in with
 proof-based justifications by registering as an extension to its justification service.

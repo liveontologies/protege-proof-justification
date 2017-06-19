@@ -1,6 +1,6 @@
-Protege Proof Justification Explanation
+Protege Proof Justification
 
-Protege Proof Justification Explanation is Copyright (c) 2016 - 2017 
+Protege Proof Justification is Copyright (c) 2016 - 2017 
 Live Ontologies Project
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,18 +26,18 @@ Explanation plug-in with them.
 
 For further information see: 
 
-https://github.com/liveontologies/protege-proof-justification-explanation 
+https://github.com/liveontologies/protege-proof-justification 
 
 REQUIREMENTS:
 
-Protege Proof Justification Explanation is tested to work with Protege 5.0.0. It may work 
+Protege Proof Justification is tested to work with Protege 5.0.0. It may work 
 with other versions of Protege.
 
 INSTALLATION:
 
 To install, place all jar files inside the archive 
 
-	protege-proof-justification-explanation-0.0.1-SNAPSHOT.zip 
+	protege-proof-justification-0.0.1-SNAPSHOT.zip 
 
 to the plugins folder of the Protege installation. The plug-in supports Protege
 Auto Update feature which can be used for upgrading to newer versions according
