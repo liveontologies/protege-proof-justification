@@ -27,7 +27,7 @@ import org.protege.editor.core.plugin.AbstractPluginLoader;
 import org.protege.editor.owl.OWLEditorKit;
 
 /**
- * Load the available specified {@link ProverService} plugins
+ * Load the available specified {@link JustificationProofService} plugins
  *
  * @author Alexander Date: 23/02/2017
  */

@@ -27,16 +27,22 @@ import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * A skeleton for a plugin that can provide us with a prover
+ * A skeleton for a plugin that can provide proofs that can be used for
+ * computing justifications
  * 
  * @author Alexander Date: 23/02/2017
+ * @author Yevgeny Kazakov
  */
 
-public abstract class ProverService implements ProtegePluginInstance {
+public abstract class JustificationProofService implements ProtegePluginInstance {
 
+	/**
+	 * @param entailment
+	 * @return
+	 */
 	public abstract JustificationCompleteProof<?> getJustificationCompleteProof(OWLAxiom entailment);
 
-	ProverService setup(OWLEditorKit kit) {
+	JustificationProofService setup(OWLEditorKit kit) {
 		kit_ = kit;
 		return this;
 	}

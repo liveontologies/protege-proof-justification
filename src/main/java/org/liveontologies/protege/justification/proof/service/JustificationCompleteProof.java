@@ -22,14 +22,29 @@ package org.liveontologies.protege.justification.proof.service;
  * #L%
  */
 
-
 import java.util.Set;
 
 import org.liveontologies.puli.InferenceJustifier;
 import org.liveontologies.puli.Proof;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-public interface JustificationCompleteProof<C> extends Proof<C>, InferenceJustifier<C, Set<? extends OWLAxiom>> {
+/**
+ * A {link Proof} that can be used for computing the justifications for the
+ * given goal conclusion. Every inference used in this proof is associated with
+ * a set of {@link OWLAxiom}s that are necessary to trigger this inferences.
+ * Justifications are minimal subsets of {@link OWLAxiom}s such that the given
+ * goal conclusion {@link #getGoal()} can be derived using the inferences in the
+ * {link Proof} that are associated with subsets of such axioms.
+ * 
+ * @author Yevgeny Kazakov
+ *
+ * @param <C>
+ */
+public interface JustificationCompleteProof<C>
+		extends Proof<C>, InferenceJustifier<C, Set<? extends OWLAxiom>> {
 
+	/**
+	 * @return the conclusion for which the justifications should be computed
+	 */
 	C getGoal();
 }

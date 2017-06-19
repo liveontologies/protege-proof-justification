@@ -29,12 +29,12 @@ import java.util.Map;
 
 import org.liveontologies.protege.justification.proof.service.ProverPlugin;
 import org.liveontologies.protege.justification.proof.service.ProverPluginLoader;
-import org.liveontologies.protege.justification.proof.service.ProverService;
+import org.liveontologies.protege.justification.proof.service.JustificationProofService;
 import org.protege.editor.core.Disposable;
 import org.protege.editor.owl.OWLEditorKit;
 
 /**
- * Keeps track of the available specified {@link ProverService} plugins.
+ * Keeps track of the available specified {@link JustificationProofService} plugins.
  * 
  * @author Pavel Klinov pavel.klinov@uni-ulm.de
  * 
@@ -47,16 +47,16 @@ public class ProverServiceManager implements Disposable {
 
 	public static String LAST_CHOOSEN_SERVICE_ID = null;
 
-	private final Collection<ProverService> services_;
-	private final Map<ProverService, String> serviceIds_;
-	private ProverService selectedService_ = null;
+	private final Collection<JustificationProofService> services_;
+	private final Map<JustificationProofService, String> serviceIds_;
+	private JustificationProofService selectedService_ = null;
 
 	public ProverServiceManager(OWLEditorKit kit) throws Exception {
-		services_ = new ArrayList<ProverService>();
-		serviceIds_ = new HashMap<ProverService, String>();
+		services_ = new ArrayList<JustificationProofService>();
+		serviceIds_ = new HashMap<JustificationProofService, String>();
 		ProverPluginLoader loader = new ProverPluginLoader(kit);
 		for (ProverPlugin plugin : loader.getPlugins()) {
-			ProverService service = plugin.newInstance();
+			JustificationProofService service = plugin.newInstance();
 			services_.add(service);
 			serviceIds_.put(service,
 					plugin.getIExtension().getUniqueIdentifier());
@@ -65,25 +65,25 @@ public class ProverServiceManager implements Disposable {
 
 	@Override
 	public void dispose() throws Exception {
-		for (ProverService service : services_) {
+		for (JustificationProofService service : services_) {
 			service.dispose();
 		}
 	}
 
-	public Collection<ProverService> getServices() {
+	public Collection<JustificationProofService> getServices() {
 		return services_;
 	}
 
-	public ProverService getSelectedService() {
+	public JustificationProofService getSelectedService() {
 		return selectedService_;
 	}
 
-	public void selectService(ProverService service) {
+	public void selectService(JustificationProofService service) {
 		selectedService_ = service;
 		LAST_CHOOSEN_SERVICE_ID = getIdForService(service);
 	}
 
-	public String getIdForService(ProverService service) {
+	public String getIdForService(JustificationProofService service) {
 		return serviceIds_.get(service);
 	}
 }

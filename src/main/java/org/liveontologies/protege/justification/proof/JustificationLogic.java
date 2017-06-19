@@ -28,7 +28,7 @@ import java.util.Set;
 
 import org.liveontologies.protege.explanation.justification.service.JustificationComputationListener;
 import org.liveontologies.protege.justification.proof.service.JustificationCompleteProof;
-import org.liveontologies.protege.justification.proof.service.ProverService;
+import org.liveontologies.protege.justification.proof.service.JustificationProofService;
 import org.liveontologies.puli.justifications.InterruptMonitor;
 import org.liveontologies.puli.justifications.MinimalSubsetEnumerator;
 import org.liveontologies.puli.justifications.MinimalSubsetEnumerators;
@@ -48,7 +48,7 @@ public class JustificationLogic {
 	}
 
 	public void computeProofBasedJustifications(OWLAxiom entailment,
-			ProverService service) {
+			JustificationProofService service) {
 		enumerateJustifications(
 				service.getJustificationCompleteProof(entailment));
 	}
