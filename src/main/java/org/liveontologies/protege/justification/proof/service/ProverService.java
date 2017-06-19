@@ -32,11 +32,11 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * @author Alexander Date: 23/02/2017
  */
 
-public abstract class ProverService<C> implements ProtegePluginInstance {
+public abstract class ProverService implements ProtegePluginInstance {
 
-	public abstract JustificationCompleteProof<C> getJustificationCompleteProof(OWLAxiom entailment);
+	public abstract JustificationCompleteProof<?> getJustificationCompleteProof(OWLAxiom entailment);
 
-	ProverService<C> setup(OWLEditorKit kit) {
+	ProverService setup(OWLEditorKit kit) {
 		kit_ = kit;
 		return this;
 	}

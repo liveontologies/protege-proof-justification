@@ -47,16 +47,16 @@ public class ProverServiceManager implements Disposable {
 
 	public static String LAST_CHOOSEN_SERVICE_ID = null;
 
-	private final Collection<ProverService<?>> services_;
-	private final Map<ProverService<?>, String> serviceIds_;
-	private ProverService<?> selectedService_ = null;
+	private final Collection<ProverService> services_;
+	private final Map<ProverService, String> serviceIds_;
+	private ProverService selectedService_ = null;
 
 	public ProverServiceManager(OWLEditorKit kit) throws Exception {
-		services_ = new ArrayList<ProverService<?>>();
-		serviceIds_ = new HashMap<ProverService<?>, String>();
+		services_ = new ArrayList<ProverService>();
+		serviceIds_ = new HashMap<ProverService, String>();
 		ProverPluginLoader loader = new ProverPluginLoader(kit);
 		for (ProverPlugin plugin : loader.getPlugins()) {
-			ProverService<?> service = plugin.newInstance();
+			ProverService service = plugin.newInstance();
 			services_.add(service);
 			serviceIds_.put(service,
 					plugin.getIExtension().getUniqueIdentifier());
@@ -65,25 +65,25 @@ public class ProverServiceManager implements Disposable {
 
 	@Override
 	public void dispose() throws Exception {
-		for (ProverService<?> service : services_) {
+		for (ProverService service : services_) {
 			service.dispose();
 		}
 	}
 
-	public Collection<ProverService<?>> getServices() {
+	public Collection<ProverService> getServices() {
 		return services_;
 	}
 
-	public ProverService<?> getSelectedService() {
+	public ProverService getSelectedService() {
 		return selectedService_;
 	}
 
-	public void selectService(ProverService<?> service) {
+	public void selectService(ProverService service) {
 		selectedService_ = service;
 		LAST_CHOOSEN_SERVICE_ID = getIdForService(service);
 	}
 
-	public String getIdForService(ProverService<?> service) {
+	public String getIdForService(ProverService service) {
 		return serviceIds_.get(service);
 	}
 }

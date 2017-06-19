@@ -81,7 +81,7 @@ public class ProofBasedJustificationService extends ComputationService {
 		private static final long serialVersionUID = 6761454714925903936L;
 
 		public ProverSwitchPanel() {
-			Collection<ProverService<?>> services = manager_.getServices();
+			Collection<ProverService> services = manager_.getServices();
 			switch (services.size()) {
 			case 0:
 				break;
@@ -95,9 +95,9 @@ public class ProofBasedJustificationService extends ComputationService {
 				break;
 			default:
 				setLayout(new BorderLayout());
-				ProverService<?> serviceToSelect = services.iterator().next();
-				JComboBox<ProverService<?>> selector = new JComboBox<ProverService<?>>();
-				for (ProverService<?> service : services) {
+				ProverService serviceToSelect = services.iterator().next();
+				JComboBox<ProverService> selector = new JComboBox<ProverService>();
+				for (ProverService service : services) {
 					selector.addItem(service);
 					if (ProverServiceManager.LAST_CHOOSEN_SERVICE_ID == manager_
 							.getIdForService(service))
@@ -109,7 +109,7 @@ public class ProofBasedJustificationService extends ComputationService {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						manager_.selectService(
-								(ProverService<?>) selector.getSelectedItem());
+								(ProverService) selector.getSelectedItem());
 						settingsChanged();
 					}
 				});

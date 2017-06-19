@@ -47,15 +47,12 @@ public class JustificationLogic {
 		listeners_ = new ArrayList<JustificationComputationListener>();
 	}
 
-	public <C> void computeProofBasedJustifications(OWLAxiom entailment,
-			ProverService<C> service) {
-		JustificationCompleteProof<C> jcp = service.getJustificationCompleteProof(entailment);
-		SimpleMonitor monitor = new SimpleMonitor();
-		SimpleListener listener = new SimpleListener();
-		MinimalSubsetEnumerators.enumerateJustifications(jcp.getGoal(), jcp,
-				jcp, monitor, listener);
+	public void computeProofBasedJustifications(OWLAxiom entailment,
+			ProverService service) {
+		enumerateJustifications(
+				service.getJustificationCompleteProof(entailment));
 	}
-
+		
 	public void addComputationListener(
 			JustificationComputationListener listener) {
 		listeners_.add(listener);
@@ -74,6 +71,14 @@ public class JustificationLogic {
 		return isInterrupted_;
 	}
 
+	private <C> void enumerateJustifications(
+			JustificationCompleteProof<C> jcp) {
+		SimpleMonitor monitor = new SimpleMonitor();
+		SimpleListener listener = new SimpleListener();
+		MinimalSubsetEnumerators.enumerateJustifications(jcp.getGoal(), jcp,
+				jcp, monitor, listener);
+	}
+	
 	private class SimpleListener
 			implements MinimalSubsetEnumerator.Listener<OWLAxiom> {
 
