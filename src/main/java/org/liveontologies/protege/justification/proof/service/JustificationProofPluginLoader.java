@@ -32,14 +32,14 @@ import org.protege.editor.owl.OWLEditorKit;
  * @author Alexander Date: 23/02/2017
  */
 
-public class ProverPluginLoader extends AbstractPluginLoader<ProverPlugin> {
+public class JustificationProofPluginLoader extends AbstractPluginLoader<ProverPlugin> {
 
 	private final OWLEditorKit editorKit_;
 
 	/**
 	 * Constructs ProverPluginLoader
 	 */
-	public ProverPluginLoader(OWLEditorKit editorKit) {
+	public JustificationProofPluginLoader(OWLEditorKit editorKit) {
 		super(ProverPlugin.KEY, ProverPlugin.ID);
 		editorKit_ = editorKit;
 	}

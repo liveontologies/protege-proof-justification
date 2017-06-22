@@ -24,43 +24,50 @@ package org.liveontologies.protege.justification.proof;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.liveontologies.protege.justification.proof.service.ProverPlugin;
-import org.liveontologies.protege.justification.proof.service.ProverPluginLoader;
 import org.liveontologies.protege.justification.proof.service.JustificationProofService;
+import org.liveontologies.protege.justification.proof.service.ProverPlugin;
+import org.liveontologies.protege.justification.proof.service.JustificationProofPluginLoader;
 import org.protege.editor.core.Disposable;
 import org.protege.editor.owl.OWLEditorKit;
 
 /**
- * Keeps track of the available specified {@link JustificationProofService} plugins.
+ * Keeps track of the available {@link JustificationProofService} plugins.
  * 
  * @author Pavel Klinov pavel.klinov@uni-ulm.de
  * 
  * @author Yevgeny Kazakov
- * 
- *         Date: 23/02/2017
  */
+public class JustificationProofServiceManager implements Disposable {
 
-public class ProverServiceManager implements Disposable {
+	private static final String KEY_ = "org.liveontologies.protege.justification.proof.services";
 
-	public static String LAST_CHOOSEN_SERVICE_ID = null;
+	private final OWLEditorKit kit_;
 
 	private final Collection<JustificationProofService> services_;
-	private final Map<JustificationProofService, String> serviceIds_;
-	private JustificationProofService selectedService_ = null;
 
-	public ProverServiceManager(OWLEditorKit kit) throws Exception {
-		services_ = new ArrayList<JustificationProofService>();
-		serviceIds_ = new HashMap<JustificationProofService, String>();
-		ProverPluginLoader loader = new ProverPluginLoader(kit);
+	public JustificationProofServiceManager(OWLEditorKit kit) throws Exception {
+		this.kit_ = kit;
+		this.services_ = new ArrayList<JustificationProofService>();
+		JustificationProofPluginLoader loader = new JustificationProofPluginLoader(
+				kit_);
 		for (ProverPlugin plugin : loader.getPlugins()) {
 			JustificationProofService service = plugin.newInstance();
+			service.initialise();
 			services_.add(service);
-			serviceIds_.put(service,
-					plugin.getIExtension().getUniqueIdentifier());
 		}
+	}
+
+	public static synchronized JustificationProofServiceManager get(
+			OWLEditorKit editorKit) throws Exception {
+		// reuse one instance
+		JustificationProofServiceManager m = editorKit.getModelManager()
+				.get(KEY_);
+		if (m == null) {
+			m = new JustificationProofServiceManager(editorKit);
+			editorKit.put(KEY_, m);
+		}
+		return m;
 	}
 
 	@Override
@@ -74,16 +81,8 @@ public class ProverServiceManager implements Disposable {
 		return services_;
 	}
 
-	public JustificationProofService getSelectedService() {
-		return selectedService_;
+	public OWLEditorKit getOWLEditorKit() {
+		return kit_;
 	}
 
-	public void selectService(JustificationProofService service) {
-		selectedService_ = service;
-		LAST_CHOOSEN_SERVICE_ID = getIdForService(service);
-	}
-
-	public String getIdForService(JustificationProofService service) {
-		return serviceIds_.get(service);
-	}
 }

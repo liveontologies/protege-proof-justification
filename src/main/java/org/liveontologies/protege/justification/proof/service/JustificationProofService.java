@@ -25,6 +25,7 @@ package org.liveontologies.protege.justification.proof.service;
 import org.protege.editor.core.plugin.ProtegePluginInstance;
 import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 
 /**
  * A skeleton for a plugin that can provide proofs that can be used for
@@ -34,13 +35,33 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * @author Yevgeny Kazakov
  */
 
-public abstract class JustificationProofService implements ProtegePluginInstance {
+public abstract class JustificationProofService
+		implements ProtegePluginInstance {
 
 	/**
 	 * @param entailment
-	 * @return
+	 * @return {@code true} if this service can provide a proof for the given
+	 *         entailed {@link OWLAxiom}; the subsequent call of
+	 *         {@link #computeProof(OWLAxiom)} should return such a proof
 	 */
-	public abstract JustificationCompleteProof<?> getJustificationCompleteProof(OWLAxiom entailment);
+	public abstract boolean hasProof(OWLAxiom entailment);
+
+	/**
+	 * Returns a {@link JustificationCompleteProof} for the given
+	 * {@link OWLAxiom} entailment from which it is possible to recognize if the
+	 * entailment can be derived from subsets of {@link OWLAxiom}s of the
+	 * ontology.
+	 * 
+	 * @param entailment
+	 *            the {@link OWLAxiom} for which the proof should be generated
+	 * @return the {@link JustificationCompleteProof} representing the set of
+	 *         inferences using which the given {@link OWLAxiom} can be derived
+	 *         from the axioms in the ontology
+	 * @throws UnsupportedEntailmentTypeException
+	 *             if checking entailment of the given given {@link OWLAxiom} is
+	 *             not supported
+	 */
+	public abstract JustificationCompleteProof<?> computeProof(OWLAxiom entailment);
 
 	JustificationProofService setup(OWLEditorKit kit) {
 		kit_ = kit;
