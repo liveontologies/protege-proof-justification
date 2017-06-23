@@ -67,8 +67,6 @@ class JustificationProofServiceSelectionPanel extends JPanel {
 				selector.addItem(service);
 				// TODO: cache the last selection
 			}
-			selector.setSelectedItem(selectedService);
-			proofManager_.selectService(selectedService);
 			selector.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -78,6 +76,7 @@ class JustificationProofServiceSelectionPanel extends JPanel {
 				}
 			});
 			add(selector, BorderLayout.NORTH);
+			selector.setSelectedItem(selectedService);
 		}
 	}
 }
