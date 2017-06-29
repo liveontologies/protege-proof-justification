@@ -68,7 +68,7 @@ public class ProofBasedJustificationService
 
 	@Override
 	public String getName() {
-		return "Proof-Based Justifications";
+		return "Proof Justifications";
 	}
 
 }

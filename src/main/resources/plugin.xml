@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="ProverService" name="Prover Service" schema="schema/ProverService.exsd"/>
-   <extension
-         id="JustificationService"
-         point="org.liveontologies.protege.explanation.justification.JustificationService">
-      <name
-            value="Justification Service">
-      </name>
-      <class
-            value="org.liveontologies.protege.justification.proof.ProofBasedJustificationService">
-      </class>
-   </extension>
+
+    <extension-point id="ProverService" name="Prover Service" schema="schema/ProverService.exsd"/>
+
+    <extension-point id="Preferences" name="Proof Preferences" schema="schema/ProofPreferences.exsd"/>
+
+    <extension
+        id="JustificationService"
+        point="org.liveontologies.protege.explanation.justification.JustificationService">
+        <name value="Justification Service" />
+        <class value="org.liveontologies.protege.justification.proof.ProofBasedJustificationService" />
+    </extension>
+
+    <extension
+        id="ProofJustificationPreferences"
+        point="org.liveontologies.protege.explanation.justification.JustificationPreferences">
+        <label value="Proof Justifications" />
+        <class value="org.liveontologies.protege.justification.proof.preferences.ProofPrefPanel" />
+    </extension>
+
+    <extension
+        id="ProofJustificationGeneralPreferences"
+        point="org.liveontologies.protege.justification.proof.Preferences">
+        <label value="General" />
+        <class value="org.liveontologies.protege.justification.proof.preferences.ProofJustificationPreferencesGeneralPanel" />
+    </extension>
 
 </plugin>
