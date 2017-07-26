@@ -1,5 +1,3 @@
-package org.liveontologies.protege.justification.proof;
-
 /*-
  * #%L
  * Protege Proof Justification
@@ -21,6 +19,7 @@ package org.liveontologies.protege.justification.proof;
  * limitations under the License.
  * #L%
  */
+package org.liveontologies.protege.justification.proof;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,7 +56,7 @@ public class JustificationProofManager {
 	/**
 	 * the current proof for the{@link #entailment_}
 	 */
-	private JustificationCompleteProof<?> proof_ = null;
+	private JustificationCompleteProof proof_ = null;
 
 	/**
 	 * the listeners to be notified when {@link #proof_} is changed
@@ -126,7 +125,7 @@ public class JustificationProofManager {
 		listeners_.remove(listener);
 	}
 
-	public synchronized JustificationCompleteProof<?> getProof() {
+	public synchronized JustificationCompleteProof getProof() {
 		return proof_;
 	}
 

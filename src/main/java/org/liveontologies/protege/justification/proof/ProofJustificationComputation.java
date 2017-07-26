@@ -71,8 +71,7 @@ public class ProofJustificationComputation extends JustificationComputation
 		enumerateJustifications(manager_.getProof());
 	}
 
-	public <C> void enumerateJustifications(
-			JustificationCompleteProof<C> proof) {
+	public void enumerateJustifications(JustificationCompleteProof proof) {
 		if (priorityCompatator_ == null) {
 			MinimalSubsetEnumerators.enumerateJustifications(proof.getGoal(),
 					proof, proof, this, this);

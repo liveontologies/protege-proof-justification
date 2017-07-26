@@ -27,7 +27,7 @@ import org.liveontologies.puli.ProofPrinter;
 
 public class JustificationCompleteProofPrinter {
 
-	public static <C> void print(JustificationCompleteProof<C> proof)
+	public static void print(JustificationCompleteProof proof)
 			throws IOException {
 		ProofPrinter.print(proof, proof, proof.getGoal());
 	}

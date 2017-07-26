@@ -1,5 +1,3 @@
-package org.liveontologies.protege.justification.proof.service;
-
 /*-
  * #%L
  * Protege Proof Justification Explanation
@@ -21,6 +19,7 @@ package org.liveontologies.protege.justification.proof.service;
  * limitations under the License.
  * #L%
  */
+package org.liveontologies.protege.justification.proof.service;
 
 import org.protege.editor.core.plugin.ProtegePluginInstance;
 import org.protege.editor.owl.OWLEditorKit;
@@ -61,7 +60,8 @@ public abstract class JustificationProofService
 	 *             if checking entailment of the given given {@link OWLAxiom} is
 	 *             not supported
 	 */
-	public abstract JustificationCompleteProof<?> computeProof(OWLAxiom entailment);
+	public abstract JustificationCompleteProof computeProof(
+			OWLAxiom entailment);
 
 	JustificationProofService setup(OWLEditorKit kit) {
 		kit_ = kit;
