@@ -2,27 +2,27 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-    <extension-point id="ProverService" name="Prover Service" schema="schema/ProverService.exsd"/>
+    <extension-point id="JustificationProofService" name="Justification Proof Service" schema="schema/JustificationProofService.exsd"/>
 
-    <extension-point id="Preferences" name="Proof Preferences" schema="schema/ProofPreferences.exsd"/>
+    <extension-point id="JustificationProofPreferences" name="Justification Proof Preferences" schema="schema/JustificationProofPreferences.exsd"/>
 
     <extension
         id="JustificationService"
-        point="org.liveontologies.protege.explanation.justification.JustificationService">
+        point="org.liveontologies.protege.explanation.justification.JustificationComputationService">
         <name value="Justification Service" />
-        <class value="org.liveontologies.protege.justification.proof.ProofBasedJustificationService" />
+        <class value="org.liveontologies.protege.justification.proof.ProofBasedJustificationComputationService" />
     </extension>
 
     <extension
         id="ProofJustificationPreferences"
-        point="org.liveontologies.protege.explanation.justification.JustificationPreferences">
+        point="org.liveontologies.protege.explanation.justification.JustificationComputationPreferences">
         <label value="Proof Justifications" />
         <class value="org.liveontologies.protege.justification.proof.preferences.ProofPrefPanel" />
     </extension>
 
     <extension
         id="ProofJustificationGeneralPreferences"
-        point="org.liveontologies.protege.justification.proof.Preferences">
+        point="org.liveontologies.protege.justification.proof.JustificationProofPreferences">
         <label value="General" />
         <class value="org.liveontologies.protege.justification.proof.preferences.ProofJustificationPreferencesGeneralPanel" />
     </extension>

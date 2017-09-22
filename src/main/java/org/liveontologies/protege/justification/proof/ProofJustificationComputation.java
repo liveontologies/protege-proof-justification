@@ -39,7 +39,7 @@ public class ProofJustificationComputation extends JustificationComputation
 
 	private final JustificationProofManager manager_;
 
-	private PriorityComparator<Set<OWLAxiom>, ?> priorityCompatator_;
+	private PriorityComparator<Set<OWLAxiom>, ?> priorityComparator_;
 
 	public ProofJustificationComputation(JustificationProofManager manager,
 			JustificationListener listener,
@@ -51,7 +51,7 @@ public class ProofJustificationComputation extends JustificationComputation
 	@Override
 	public <P> boolean setPrefferredPriority(
 			JustificationPriorityComparator<P> comparator) {
-		this.priorityCompatator_ = new PriorityComparator<Set<OWLAxiom>, P>() {
+		this.priorityComparator_ = new PriorityComparator<Set<OWLAxiom>, P>() {
 
 			@Override
 			public int compare(P p1, P p2) {
@@ -72,12 +72,12 @@ public class ProofJustificationComputation extends JustificationComputation
 	}
 
 	public void enumerateJustifications(JustificationCompleteProof proof) {
-		if (priorityCompatator_ == null) {
+		if (priorityComparator_ == null) {
 			MinimalSubsetEnumerators.enumerateJustifications(proof.getGoal(),
 					proof, proof, this, this);
 		} else {
 			MinimalSubsetEnumerators.enumerateJustifications(proof.getGoal(),
-					proof, proof, priorityCompatator_, this, this);
+					proof, proof, priorityComparator_, this, this);
 		}
 	}
 

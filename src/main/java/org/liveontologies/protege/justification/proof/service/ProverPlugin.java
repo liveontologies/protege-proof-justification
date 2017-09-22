@@ -35,7 +35,7 @@ import org.protege.editor.owl.OWLEditorKit;
 public class ProverPlugin extends AbstractProtegePlugin<JustificationProofService> {
 
 	public static final String KEY = "org.liveontologies.protege.justification.proof";
-	public static final String ID = "ProverService";
+	public static final String ID = "JustificationProofService";
 
 	private final OWLEditorKit editorKit_;
 

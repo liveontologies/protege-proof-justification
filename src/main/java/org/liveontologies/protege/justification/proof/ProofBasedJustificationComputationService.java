@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * @author Alexander Stupnikov Date: 10/02/2017
  */
 
-public class ProofBasedJustificationService
+public class ProofBasedJustificationComputationService
 		extends JustificationComputationService {
 
 	JustificationProofServiceManager manager_;

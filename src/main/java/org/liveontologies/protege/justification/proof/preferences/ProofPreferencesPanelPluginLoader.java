@@ -30,7 +30,7 @@ import org.protege.editor.core.plugin.AbstractPluginLoader;
 public class ProofPreferencesPanelPluginLoader extends AbstractPluginLoader<ProofPreferencesPanelPlugin> {
 	private final EditorKit kit;
 	
-	private static final String ID = "Preferences";
+	private static final String ID = "JustificationProofPreferences";
 	private static final String KEY = "org.liveontologies.protege.justification.proof";
 
 	public ProofPreferencesPanelPluginLoader(EditorKit kit) {
