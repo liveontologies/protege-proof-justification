@@ -26,7 +26,7 @@ import java.util.Set;
 import org.liveontologies.protege.explanation.justification.service.JustificationComputation;
 import org.liveontologies.protege.explanation.justification.service.JustificationListener;
 import org.liveontologies.protege.explanation.justification.service.JustificationPriorityComparator;
-import org.liveontologies.protege.justification.proof.service.JustificationCompleteProof;
+import org.liveontologies.puli.Inference;
 import org.liveontologies.puli.pinpointing.InterruptMonitor;
 import org.liveontologies.puli.pinpointing.MinimalSubsetEnumerator;
 import org.liveontologies.puli.pinpointing.MinimalSubsetEnumerators;
@@ -68,16 +68,20 @@ public class ProofJustificationComputation extends JustificationComputation
 
 	@Override
 	public void startComputation() {
-		enumerateJustifications(manager_.getProof());
+		enumerateJustifications(manager_.getEntailment(),
+				manager_.getJustifiedProof());
 	}
 
-	public void enumerateJustifications(JustificationCompleteProof proof) {
+	public <I extends Inference<?>> void enumerateJustifications(Object goal,
+			JustifiedProof<I> justifiedProof) {
 		if (priorityComparator_ == null) {
-			MinimalSubsetEnumerators.enumerateJustifications(proof.getGoal(),
-					proof, proof, this, this);
+			MinimalSubsetEnumerators.enumerateJustifications(goal,
+					justifiedProof.getProof(), justifiedProof.getJustifier(),
+					this, this);
 		} else {
-			MinimalSubsetEnumerators.enumerateJustifications(proof.getGoal(),
-					proof, proof, priorityComparator_, this, this);
+			MinimalSubsetEnumerators.enumerateJustifications(goal,
+					justifiedProof.getProof(), justifiedProof.getJustifier(),
+					priorityComparator_, this, this);
 		}
 	}
 

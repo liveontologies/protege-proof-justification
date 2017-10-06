@@ -25,15 +25,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.liveontologies.protege.justification.proof.service.JustificationCompleteProof;
 import org.liveontologies.protege.justification.proof.service.JustificationProofService;
+import org.liveontologies.puli.Inference;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Used to keep track of the {@link JustificationCompleteProof} for a particular
- * entailed {@link OWLAxiom}
+ * Used to keep track of the inputs for justification computation for a
+ * particular entailed {@link OWLAxiom}
  * 
  * @author Yevgeny Kazakov
  */
@@ -54,12 +54,13 @@ public class JustificationProofManager {
 	private final OWLAxiom entailment_;
 
 	/**
-	 * the current proof for the{@link #entailment_}
+	 * the current proof plus justification of inferences for
+	 * the{@link #entailment_}
 	 */
-	private JustificationCompleteProof proof_ = null;
+	private JustifiedProof<?> justifierProof_ = null;
 
 	/**
-	 * the listeners to be notified when {@link #proof_} is changed
+	 * the listeners to be notified when {@link #justifierProof_} is changed
 	 */
 	private final List<ChangeListener> listeners_ = new ArrayList<ChangeListener>();
 
@@ -82,9 +83,9 @@ public class JustificationProofManager {
 	 * 
 	 * @see #getEntailment()
 	 */
-	public Collection<JustificationProofService> getServices() {
-		List<JustificationProofService> result = new ArrayList<>();
-		for (JustificationProofService service : serviceMan_.getServices()) {
+	public Collection<JustificationProofService<?>> getServices() {
+		List<JustificationProofService<?>> result = new ArrayList<>();
+		for (JustificationProofService<?> service : serviceMan_.getServices()) {
 			if (service.hasProof(entailment_)) {
 				result.add(service);
 			}
@@ -93,23 +94,23 @@ public class JustificationProofManager {
 	}
 
 	/**
-	 * Sets the {@link JustificationProofService} using which the
-	 * {@link JustificationCompleteProof} for the entailment is obtained; it
-	 * should be among those returned by {@link #getServices()}
+	 * Sets the {@link JustificationProofService} for the entailment is
+	 * obtained; it should be among those returned by {@link #getServices()}
 	 * 
 	 * @param proofService
 	 * 
 	 * @see #getEntailment()
 	 * @see #getServices()
-	 * @see #getProof()
+	 * @see #getJustifiedProof()
 	 */
-	public synchronized void selectService(
-			JustificationProofService proofService) {
-		proof_ = proofService.computeProof(entailment_);
+	public synchronized <I extends Inference<?>> void selectService(
+			JustificationProofService<I> proofService) {
+		justifierProof_ = new JustifiedProof<I>(
+				proofService.computeProof(entailment_), proofService);
 		int i = 0;
 		try {
 			for (; i < listeners_.size(); i++) {
-				listeners_.get(i).proofChanged();
+				listeners_.get(i).justifiedProofChanged();
 			}
 		} catch (Throwable e) {
 			LOGGER_.warn("Remove the listener due to an exception", e);
@@ -125,17 +126,17 @@ public class JustificationProofManager {
 		listeners_.remove(listener);
 	}
 
-	public synchronized JustificationCompleteProof getProof() {
-		return proof_;
+	public synchronized JustifiedProof<?> getJustifiedProof() {
+		return justifierProof_;
 	}
 
 	public interface ChangeListener {
 		/**
 		 * fired when a subsequent call to
-		 * {@link JustificationProofManager#getProof()} would return a different
-		 * result
+		 * {@link JustificationProofManager#getJustifiedProof()} would return a
+		 * different result
 		 */
-		void proofChanged();
+		void justifiedProofChanged();
 	}
 
 }

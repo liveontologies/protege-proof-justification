@@ -45,9 +45,9 @@ class JustificationProofServiceSelectionPanel extends JPanel {
 	public JustificationProofServiceSelectionPanel(
 			JustificationProofManager proofManager) {
 		this.proofManager_ = proofManager;
-		Collection<JustificationProofService> services = proofManager
+		Collection<JustificationProofService<?>> services = proofManager
 				.getServices();
-		JustificationProofService selectedService;
+		JustificationProofService<?> selectedService;
 		switch (services.size()) {
 		case 0:
 			break;
@@ -62,16 +62,16 @@ class JustificationProofServiceSelectionPanel extends JPanel {
 		default:
 			setLayout(new BorderLayout());
 			selectedService = services.iterator().next();
-			JComboBox<JustificationProofService> selector = new JComboBox<JustificationProofService>();
-			for (JustificationProofService service : services) {
+			JComboBox<JustificationProofService<?>> selector = new JComboBox<JustificationProofService<?>>();
+			for (JustificationProofService<?> service : services) {
 				selector.addItem(service);
 				// TODO: cache the last selection
 			}
 			selector.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					proofManager_
-							.selectService((JustificationProofService) selector
+					proofManager_.selectService(
+							(JustificationProofService<?>) selector
 									.getSelectedItem());
 				}
 			});

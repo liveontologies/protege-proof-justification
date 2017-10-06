@@ -62,7 +62,7 @@ public class ProofJustificationComputationManager
 	}
 
 	@Override
-	public void proofChanged() {
+	public void justifiedProofChanged() {
 		notifyJustificationsOutdated();
 	}
 }

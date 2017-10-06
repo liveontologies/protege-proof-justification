@@ -54,7 +54,7 @@ public class ProofBasedJustificationComputationService
 
 	@Override
 	public boolean canJustify(OWLAxiom entailment) {
-		for (JustificationProofService service : manager_.getServices()) {
+		for (JustificationProofService<?> service : manager_.getServices()) {
 			if (service.hasProof(entailment)) {
 				return true;
 			}

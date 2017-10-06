@@ -22,7 +22,6 @@ package org.liveontologies.protege.justification.proof.preferences;
  * #L%
  */
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Collection;
@@ -36,7 +35,8 @@ import org.liveontologies.protege.justification.proof.service.JustificationProof
 import org.protege.editor.core.ui.preferences.PreferencesLayoutPanel;
 import org.protege.editor.owl.ui.preferences.OWLPreferencesPanel;
 
-public class ProofJustificationPreferencesGeneralPanel extends OWLPreferencesPanel {
+public class ProofJustificationPreferencesGeneralPanel
+		extends OWLPreferencesPanel {
 
 	private static final long serialVersionUID = 6339983846736926930L;
 
@@ -59,13 +59,14 @@ public class ProofJustificationPreferencesGeneralPanel extends OWLPreferencesPan
 	private void addInstalledJustificationProofServicesComponent(
 			PreferencesLayoutPanel panel) throws Exception {
 		panel.addGroup("Installed proof services");
-		DefaultListModel<JustificationProofService> servicesModel = new DefaultListModel<>();
-		Collection<JustificationProofService> services = JustificationProofServiceManager
+		DefaultListModel<JustificationProofService<?>> servicesModel = new DefaultListModel<>();
+		Collection<JustificationProofService<?>> services = JustificationProofServiceManager
 				.get(getOWLEditorKit()).getServices();
-		for (JustificationProofService service : services) {
+		for (JustificationProofService<?> service : services) {
 			servicesModel.addElement(service);
 		}
-		JList<JustificationProofService> proofServicesList = new JList<>(servicesModel);
+		JList<JustificationProofService<?>> proofServicesList = new JList<>(
+				servicesModel);
 		proofServicesList.setToolTipText(
 				"Plugins that provide proofs that are used for justification computation");
 		JScrollPane pluginInfoScrollPane = new JScrollPane(proofServicesList);

@@ -21,6 +21,13 @@
  */
 package org.liveontologies.protege.justification.proof.service;
 
+import java.util.Set;
+
+import org.liveontologies.puli.Inference;
+import org.liveontologies.puli.InferenceJustifier;
+import org.liveontologies.puli.Inferences;
+import org.liveontologies.puli.Proof;
+import org.liveontologies.puli.Proofs;
 import org.protege.editor.core.plugin.ProtegePluginInstance;
 import org.protege.editor.owl.OWLEditorKit;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -32,10 +39,12 @@ import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
  * 
  * @author Alexander Date: 23/02/2017
  * @author Yevgeny Kazakov
+ * 
+ * @param <I>
+ *            type of inferences used in the proofs
  */
-
-public abstract class JustificationProofService
-		implements ProtegePluginInstance {
+public abstract class JustificationProofService<I extends Inference<?>>
+		implements ProtegePluginInstance, InferenceJustifier<I, Set<OWLAxiom>> {
 
 	/**
 	 * @param entailment
@@ -46,24 +55,46 @@ public abstract class JustificationProofService
 	public abstract boolean hasProof(OWLAxiom entailment);
 
 	/**
-	 * Returns a {@link JustificationCompleteProof} for the given
-	 * {@link OWLAxiom} entailment from which it is possible to recognize if the
-	 * entailment can be derived from subsets of {@link OWLAxiom}s of the
-	 * ontology.
+	 * Returns a {@link Proof} using which it is possible to derive the given
+	 * {@link OWLAxiom} entailment. The proof may use any kind of inferences
+	 * with any type of conclusions, with the only requirement that the given
+	 * {@link OWLAxiom} is derived only if it is entailed by the ontology. If
+	 * the {@link OWLAxiom} is not entailed, any {@link Proof} in which it is
+	 * not derivable can be returned, e.g., the empty proof. The returned proof
+	 * must be justification-complete, i.e., if the given {@link OWLAxiom} is
+	 * entailed from some subset of the axioms in the ontology, it is possible
+	 * to derive this {@link OWLAxiom} using only inferences whose justification
+	 * {@link OWLAxiom} appear in this subset.
 	 * 
 	 * @param entailment
-	 *            the {@link OWLAxiom} for which the proof should be generated
-	 * @return the {@link JustificationCompleteProof} representing the set of
-	 *         inferences using which the given {@link OWLAxiom} can be derived
-	 *         from the axioms in the ontology
+	 *            the {@link OWLAxiom} to be derived
+	 * @return the {@link Proof} that derives the given {@link OWLAxiom}
 	 * @throws UnsupportedEntailmentTypeException
 	 *             if checking entailment of the given given {@link OWLAxiom} is
 	 *             not supported
+	 * 
+	 * @see Proofs#isDerivable(Proof, Object)
+	 * @see Proofs#emptyProof()
+	 * @see #getJustification(Inference)
 	 */
-	public abstract JustificationCompleteProof computeProof(
-			OWLAxiom entailment);
+	public abstract Proof<? extends I> computeProof(OWLAxiom entailment);
 
-	JustificationProofService setup(OWLEditorKit kit) {
+	/**
+	 * Provides a justification for each inference used in the proof
+	 * 
+	 * @param inference
+	 * @return the set of {@link OWLAxiom}s occurring in the ontology that have
+	 *         been used to trigger the given inference, that is, without these
+	 *         axioms the inference would not be valid. The axioms of the
+	 *         justification may not necessarily be the premises of this
+	 *         inference. The formal requirement is that an {@link OWLAxiom} can
+	 *         be derived using the inferences only if it is entailed from the
+	 *         union of justifications for these inferences.
+	 */
+	@Override
+	public abstract Set<OWLAxiom> getJustification(I inference);
+
+	JustificationProofService<I> setup(OWLEditorKit kit) {
 		kit_ = kit;
 		return this;
 	}

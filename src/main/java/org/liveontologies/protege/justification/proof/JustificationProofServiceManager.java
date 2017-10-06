@@ -25,9 +25,9 @@ package org.liveontologies.protege.justification.proof;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.liveontologies.protege.justification.proof.service.JustificationProofPluginLoader;
 import org.liveontologies.protege.justification.proof.service.JustificationProofService;
 import org.liveontologies.protege.justification.proof.service.ProverPlugin;
-import org.liveontologies.protege.justification.proof.service.JustificationProofPluginLoader;
 import org.protege.editor.core.Disposable;
 import org.protege.editor.owl.OWLEditorKit;
 
@@ -44,15 +44,15 @@ public class JustificationProofServiceManager implements Disposable {
 
 	private final OWLEditorKit kit_;
 
-	private final Collection<JustificationProofService> services_;
+	private final Collection<JustificationProofService<?>> services_;
 
 	public JustificationProofServiceManager(OWLEditorKit kit) throws Exception {
 		this.kit_ = kit;
-		this.services_ = new ArrayList<JustificationProofService>();
+		this.services_ = new ArrayList<JustificationProofService<?>>();
 		JustificationProofPluginLoader loader = new JustificationProofPluginLoader(
 				kit_);
 		for (ProverPlugin plugin : loader.getPlugins()) {
-			JustificationProofService service = plugin.newInstance();
+			JustificationProofService<?> service = plugin.newInstance();
 			service.initialise();
 			services_.add(service);
 		}
@@ -72,12 +72,12 @@ public class JustificationProofServiceManager implements Disposable {
 
 	@Override
 	public void dispose() throws Exception {
-		for (JustificationProofService service : services_) {
+		for (JustificationProofService<?> service : services_) {
 			service.dispose();
 		}
 	}
 
-	public Collection<JustificationProofService> getServices() {
+	public Collection<JustificationProofService<?>> getServices() {
 		return services_;
 	}
 
