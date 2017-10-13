@@ -17,6 +17,8 @@ is computing justifications based on proof and providing the Protege Justificati
 Explanation plug-in with them.
 	</description>
 
+	<url>https://github.com/liveontologies/${project.artifactId}</url>
+
 	<scm>
 		<connection>scm:git:https://github.com/liveontologies/${project.artifactId}.git</connection>
 		<developerConnection>scm:git:git@github.com:liveontologies/${project.artifactId}.git</developerConnection>
