@@ -1,6 +1,6 @@
 Protege Proof Justification
 
-Protege Proof Justification is Copyright (c) 2016 - 2017 
+Protege Proof Justification is Copyright (c) 2016 - 2018 
 Live Ontologies Project
 
    Licensed under the Apache License, Version 2.0 (the "License");
