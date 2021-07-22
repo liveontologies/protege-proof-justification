@@ -54,7 +54,7 @@ Explanation plug-in with them.
 
 
 	<properties>
-		<protege.version>5.0.0</protege.version>
+		<protege.version>5.5.0</protege.version>
 		<pluginId>${project.groupId}.protege.justification.proof</pluginId>
 		<extensionId>${pluginId}.service</extensionId>
 		<plugin-zip.file>
