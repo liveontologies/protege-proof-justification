@@ -1,6 +1,6 @@
 Protege Proof Justification
 
-Protege Proof Justification is Copyright (c) 2016 - 2018 
+Protege Proof Justification is Copyright (c) 2016 - 2021 
 Live Ontologies Project
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ https://github.com/liveontologies/protege-proof-justification
 
 REQUIREMENTS:
 
-Protege Proof Justification is tested to work with Protege 5.0.0. It may work 
+Protege Proof Justification is tested to work with Protege 5.5.0. It may work 
 with other versions of Protege.
 
 INSTALLATION:
