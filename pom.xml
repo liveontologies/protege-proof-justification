@@ -13,7 +13,7 @@ This is a plug-in that provides the Protege Justification Explanation plug-in wi
 proof-based justifications by registering as an extension to its justification service.
 It defines an extension point to obtain a prover also since it does not compute proofs
 by its own but uses the chosen prover instead. The main functionality of this plug-in 
-is computing justifications based on proof and providing the Protege Justification
+is computing justifications based on proofs and providing the Protege Justification
 Explanation plug-in with them.
 	</description>
 
@@ -67,25 +67,24 @@ Explanation plug-in with them.
 		<!-- the path to update.properties and version-info.txt for Protege auto-update -->
 		<update.url>https://raw.githubusercontent.com/liveontologies/protege-proof-justification/release</update.url>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
+	
+	<dependencyManagement>
+		<dependencies>
+			<!-- Import versions of dependencies from Protege -->
+			<dependency>
+				<groupId>edu.stanford.protege</groupId>
+				<artifactId>protege-parent</artifactId>
+				<version>${protege.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
 			<groupId>net.sourceforge.owlapi</groupId>
 			<artifactId>owlapi-osgidistribution</artifactId>
-			<version>4.2.6</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -121,11 +120,17 @@ Explanation plug-in with them.
 	</dependencies>
 
 	<distributionManagement>
+		<downloadUrl>https://github.com/liveontologies/${project.artifactId}/releases</downloadUrl>
 		<snapshotRepository>
 			<id>ossrh</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+	
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/liveontologies/${project.artifactId}/issues/</url>
+	</issueManagement>
 
 	<build>
 		<resources>
@@ -137,41 +142,7 @@ Explanation plug-in with them.
 				</includes>
 				<filtering>true</filtering>
 			</resource>
-		</resources>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>build-helper-maven-plugin</artifactId>
-										<versionRange>[1.0,)</versionRange>
-										<goals>
-											<goal>timestamp-property</goal>
-											<goal>parse-version</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnConfiguration>true</runOnConfiguration>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+		</resources>		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -191,9 +162,6 @@ Explanation plug-in with them.
 					<instructions>
 						<Bundle-SymbolicName>${pluginId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
-						<!-- <Export-Package>${extensionId}</Export-Package> <Embed-Dependency>*;scope=!provided;scope=compile|runtime;inline=false</Embed-Dependency> 
-							<Embed-Transitive>true</Embed-Transitive> <Embed-Directory>target/dependency</Embed-Directory> 
-							<Import-Package>*</Import-Package> -->
 						<Update-Url>${update.url}/p5.update.properties</Update-Url>
 					</instructions>
 				</configuration>

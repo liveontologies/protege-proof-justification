@@ -1,6 +1,6 @@
 Protege Proof Justification
 
-Protege Proof Justification is Copyright (c) 2016 - 2021 
+Protege Proof Justification is Copyright (c) 2016 - 2024 
 Live Ontologies Project
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ This is a plug-in that provides the Protege Justification Explanation plug-in wi
 proof-based justifications by registering as an extension to its justification service.
 It defines an extension point to obtain a prover also since it does not compute proofs
 by its own but uses the chosen prover instead. The main functionality of this plug-in 
-is computing justifications based on proof and providing the Protege Justification
+is computing justifications based on proofs and providing the Protege Justification
 Explanation plug-in with them.
 
 For further information see: 
