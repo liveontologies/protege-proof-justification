@@ -52,7 +52,6 @@ Explanation plug-in with them.
 		</developer>
 	</developers>
 
-
 	<properties>
 		<protege.version>5.5.0</protege.version>
 		<pluginId>${project.groupId}.protege.justification.proof</pluginId>
@@ -66,6 +65,8 @@ Explanation plug-in with them.
 		</release.version>
 		<!-- the path to update.properties and version-info.txt for Protege auto-update -->
 		<update.url>https://raw.githubusercontent.com/liveontologies/protege-proof-justification/release</update.url>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	
 	<dependencyManagement>
@@ -133,6 +134,66 @@ Explanation plug-in with them.
 	</issueManagement>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>3.6.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-changes-plugin</artifactId>
+					<version>2.12.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.12.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.6.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.4.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>3.2.4</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.6.3</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>				
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>5.1.9</version>
+				</plugin>				
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.4.0</version>
+				</plugin>				
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>2.3.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.13</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<resources>
 			<!-- additional resources included in jar -->
 			<resource>
@@ -145,9 +206,25 @@ Explanation plug-in with them.
 		</resources>		
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>				
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.5.4</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -156,7 +233,6 @@ Explanation plug-in with them.
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>3.0.1</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -179,7 +255,6 @@ Explanation plug-in with them.
 				<!-- the plugin used to generate license headers -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>1.9</version>
 				<configuration>
 					<verbose>false</verbose>
 					<addSvnKeyWords>true</addSvnKeyWords>
@@ -208,8 +283,7 @@ Explanation plug-in with them.
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.11</version>
+				<artifactId>build-helper-maven-plugin</artifactId>				
 				<executions>
 					<execution>
 						<!-- generate the modified plugin versions, such as release.version 
@@ -250,7 +324,6 @@ Explanation plug-in with them.
 				<!-- filtering and copying of additional files; these will *not* be included 
 					in the jar -->
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
 				<executions>
 					<execution>
 						<id>filter-main-resources</id>
@@ -316,7 +389,6 @@ Explanation plug-in with them.
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
@@ -326,9 +398,7 @@ Explanation plug-in with them.
 			</plugin>
 			<plugin>
 				<!-- generate changelog and release announcements -->
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
-				<version>2.12</version>
 				<configuration>
 					<!-- the changes filtered source changes file -->
 					<xmlPath>${basedir}/target/changes.xml</xmlPath>
@@ -397,7 +467,6 @@ Explanation plug-in with them.
 				<plugins>
 					<plugin>
 						<artifactId>maven-resources-plugin</artifactId>
-						<version>2.7</version>
 						<executions>
 							<execution>
 								<id>copy-plugin-xml-for-eclipse</id>
@@ -452,9 +521,7 @@ Explanation plug-in with them.
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>2.2.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -465,9 +532,7 @@ Explanation plug-in with them.
 						</executions>
 					</plugin>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.9.1</version>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>
@@ -478,9 +543,7 @@ Explanation plug-in with them.
 						</executions>
 					</plugin>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.5</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
