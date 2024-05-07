@@ -20,10 +20,10 @@ matrix:
 install:
   - bash -c "mkdir -p $HOME/.m2"
 build_script:
-  - mvn install -DskipTests=true -U -B
+  - mvn install --settings .ci-settings.xml -DskipTests=true -U -B
 test_script:
   - mvn test -Dassembly.skipAssembly=true -B
 deploy_script:
-  - bash -c "if [ ${DEPLOY} ] && [ ${APPVEYOR_REPO_BRANCH} = 'main' ]; then mvn mvn source:jar deploy --settings .ci-settings.xml -DskipTests=true -B; fi"   
+  - bash -c "if [ ${DEPLOY} ] && [ ${APPVEYOR_REPO_BRANCH} = 'main' ]; then mvn source:jar deploy --settings .ci-settings.xml -DskipTests=true -B; fi"   
 cache:
   - $HOME/.m2/
