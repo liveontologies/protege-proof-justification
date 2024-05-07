@@ -9,7 +9,7 @@ install: mvn install -DskipTests=true
 script: mvn test -Dassembly.skipAssembly=true -B
 after_success:
   - test "$DEPLOY" = true -a "$TRAVIS_PULL_REQUEST" = false 
-    && mvn source:jar deploy --settings .travis-settings.xml -DskipTests=true -B
+    && mvn source:jar deploy --settings .ci-settings.xml -DskipTests=true -B
 env:
   global:
   - secure: MluSUHy5HaRe/IL0bYPcibu+jY0994jVAklk6qQl1nR9cSRpVcQ+E+2eZwpqJYp3C4GXb/QhenCjpsL7iCa1n8jNYW0YKJBRdvYtln+LsSNR9swMcSWpwjqThXMTnqVxU6XuJasWeHSUhQdznjqnUYKrq9t1bPI16zhvtfintHAl5Tzwk0OlCjC12D04yy8K9Aw4fhdobV82Ynh1AEFrIV3ALCjlXKOsGkBX7x2S8FkfSF7uXe4wYXEq3JEQPR/i8FmUGMYY3hEgosS6FhJDLKuLa12xpGNxQdfNchATVdtO2PBA2AelLauuvvgcxHuUIdS6nV9XXON+UENhbJhkXdiBHD1vor9Fh2HJ4v9NN4r/DnNu7sl5cKszx/KeG5vp/BwkcqTXqQ9oNRORNMALH4ZC/cu2DC7+AEWDXeaQ6nn2rhM4HmskYxCBslJ6dL1T7Ll9LlKgX3aFumRYz4drGd5uXNRvpw6Az9DDQivkYxGvnAvW+eAofrWHBIAVwDIA4jI8Ym1+BGSYQu2Me30db42fmJEr4s1+ItyBAxxwvCZfHyw4JhENJ1gZ6IWVKTMJlP5pBLHD6w2vi474hzlqEp24BLzlQcmc2r4esBvNybPBFZ2otQdsNI91oqN7w1DogUwLOlLleN9vr/H9m91djLD8xkO9UhgMbvCEutoi87c=
