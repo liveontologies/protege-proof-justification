@@ -53,6 +53,7 @@ Explanation plug-in with them.
 	</developers>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<protege.version>5.5.0</protege.version>
 		<pluginId>${project.groupId}.protege.justification.proof</pluginId>
 		<extensionId>${pluginId}.service</extensionId>
@@ -64,7 +65,7 @@ Explanation plug-in with them.
 			${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}
 		</release.version>
 		<!-- the path to update.properties and version-info.txt for Protege auto-update -->
-		<update.url>https://raw.githubusercontent.com/liveontologies/protege-proof-justification/release</update.url>
+		<update.url>https://raw.githubusercontent.com/liveontologies/${project.artifactId}/release</update.url>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -83,11 +84,6 @@ Explanation plug-in with them.
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>net.sourceforge.owlapi</groupId>
-			<artifactId>owlapi-osgidistribution</artifactId>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>edu.stanford.protege</groupId>
 			<artifactId>protege-common</artifactId>
@@ -110,6 +106,11 @@ Explanation plug-in with them.
 			<groupId>org.liveontologies</groupId>
 			<artifactId>protege-justification-explanation</artifactId>
 			<version>0.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-osgidistribution</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -238,6 +239,7 @@ Explanation plug-in with them.
 					<instructions>
 						<Bundle-SymbolicName>${pluginId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
+						<Export-Package>${extensionId}</Export-Package>
 						<Update-Url>${update.url}/p5.update.properties</Update-Url>
 					</instructions>
 				</configuration>
@@ -366,36 +368,7 @@ Explanation plug-in with them.
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>plugin-zip</id>
-						<phase>install</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<appendAssemblyId>false</appendAssemblyId>
-							<descriptors>
-								<descriptor>${basedir}/src/assembly/plugin-zip.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- deplyoing to maven central -->
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
+			</plugin>			
 			<plugin>
 				<!-- generate changelog and release announcements -->
 				<artifactId>maven-changes-plugin</artifactId>
@@ -453,6 +426,46 @@ Explanation plug-in with them.
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>plugin-zip</id>
+						<phase>install</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>${basedir}/src/assembly/plugin-zip.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- deplyoing to maven central -->
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -519,18 +532,7 @@ Explanation plug-in with them.
 		<profile>
 			<id>release</id>
 			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
+				<plugins>					
 					<plugin>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<executions>
