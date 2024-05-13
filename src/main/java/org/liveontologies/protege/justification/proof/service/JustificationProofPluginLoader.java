@@ -37,7 +37,10 @@ public class JustificationProofPluginLoader extends AbstractPluginLoader<ProverP
 	private final OWLEditorKit editorKit_;
 
 	/**
-	 * Constructs ProverPluginLoader
+	 * Constructs new plugin instance
+	 * 
+	 * @param editorKit
+	 *            owl-related parts of Protege
 	 */
 	public JustificationProofPluginLoader(OWLEditorKit editorKit) {
 		super(ProverPlugin.KEY, ProverPlugin.ID);

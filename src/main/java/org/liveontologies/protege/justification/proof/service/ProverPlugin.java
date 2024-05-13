@@ -32,7 +32,7 @@ import org.protege.editor.owl.OWLEditorKit;
  * @author Alexander Date: 23/02/2017
  */
 
-public class ProverPlugin extends AbstractProtegePlugin<JustificationProofService> {
+public class ProverPlugin extends AbstractProtegePlugin<JustificationProofService<?>> {
 
 	public static final String KEY = "org.liveontologies.protege.justification.proof";
 	public static final String ID = "JustificationProofService";
@@ -40,10 +40,13 @@ public class ProverPlugin extends AbstractProtegePlugin<JustificationProofServic
 	private final OWLEditorKit editorKit_;
 
 	/**
-	 * Constructs plugin object
+	 * Constructs a new plugin instance
 	 * 
+	 * @param editorKit
+	 * 			  owl-related parts of Protege
 	 * @param extension
 	 *            plugin extension
+	 * 
 	 */
 	public ProverPlugin(OWLEditorKit editorKit, IExtension extension) {
 		super(extension);
@@ -51,7 +54,7 @@ public class ProverPlugin extends AbstractProtegePlugin<JustificationProofServic
 	}
 
 	@Override
-	public JustificationProofService newInstance() throws ClassNotFoundException,
+	public JustificationProofService<?> newInstance() throws ClassNotFoundException,
 			IllegalAccessException, InstantiationException {
 		return super.newInstance().setup(editorKit_);
 	}

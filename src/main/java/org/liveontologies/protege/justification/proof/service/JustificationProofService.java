@@ -25,7 +25,6 @@ import java.util.Set;
 
 import org.liveontologies.puli.Inference;
 import org.liveontologies.puli.InferenceJustifier;
-import org.liveontologies.puli.Inferences;
 import org.liveontologies.puli.Proof;
 import org.liveontologies.puli.Proofs;
 import org.protege.editor.core.plugin.ProtegePluginInstance;
