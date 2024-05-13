@@ -109,7 +109,7 @@ Explanation plug-in with them.
 		<dependency>
 			<groupId>org.liveontologies</groupId>
 			<artifactId>protege-justification-explanation</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
