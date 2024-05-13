@@ -3,12 +3,10 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Build status](https://ci.appveyor.com/api/projects/status/1br4by6ncw0wtks3?svg=true)](https://ci.appveyor.com/project/ykazakov/protege-proof-justification)
 
-This is a plug-in that provides the Protege Justification Explanation plug-in with
-proof-based justifications by registering as an extension to its justification service.
-It defines an extension point to obtain a prover also since it does not compute proofs
-by its own but uses the chosen prover instead. The main functionality of this plug-in 
-is computing justifications based on proofs and providing the Protege Justification
-Explanation plug-in with them.
+A plug-in for the [Protégé Desktop](https://protege.stanford.edu) ontology editor that provides a service for the
+[Protege Justification Explanation](https://github.com/liveontologies/protege-justification-explanation) plug-in. 
+This service computes justifications from proofs using the 
+[Proof Utility Library PuLI](https://github.com/liveontologies/puli).
 
 For further information, see <https://github.com/liveontologies/protege-proof-justification>. 
 
@@ -32,7 +30,7 @@ upgrading to newer versions according to the instructions here:
 
 ## Development
 
-To develop extensions to be used with this plugin, use the following Maven dependency:
+To develop extensions to be used with this plug-in, use the following Maven dependency:
 
 ```
 <dependency>
@@ -41,7 +39,14 @@ To develop extensions to be used with this plugin, use the following Maven depen
   <version>${releasedVersion.version}</version>
 </dependency>
 ```
-See [`src/main/resources/plugin.xml`](https://github.com/liveontologies/protege-proof-justification/blob/main/src/main/resources/plugin.xml?raw=true) for the definition of the required extension-points.
+
+Each extension should be a plug-in that implements the new 
+extension points specified in
+[`src/main/resources/plugin.xml`](https://github.com/liveontologies/protege-proof-justification/blob/main/src/main/resources/plugin.xml?raw=true)
+using which proofs for entailments can be obtained.
+
+See [Plugin Anatomy](https://protegewiki.stanford.edu/wiki/PluginAnatomy) for general
+information about developing Protégé plug-ins.
 
 To use snapshots versions of this library (if not compiled from sources), please add
 the Sonatype OSSRH snapshot repository either to your `pom.xml` or `settings.xml`:

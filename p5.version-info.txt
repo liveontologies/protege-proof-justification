@@ -1,12 +1,10 @@
 The Live Ontologies Project team is pleased to announce 
         the Protege Proof Justification 0.0.1 release!
 
-This is a plug-in that provides the Protege Justification Explanation plug-in with
-proof-based justifications by registering as an extension to its justification service.
-It defines an extension point to obtain a prover also since it does not compute proofs
-by its own but uses the chosen prover instead. The main functionality of this plug-in 
-is computing justifications based on proofs and providing the Protege Justification
-Explanation plug-in with them.
+A plug-in for the [Protégé Desktop](https://protege.stanford.edu) ontology editor that provides a service for the
+[Protege Justification Explanation](https://github.com/liveontologies/protege-justification-explanation) plug-in. 
+This service computes justifications from proofs using the 
+[Proof Utility Library PuLI](https://github.com/liveontologies/puli).
 
 Changes in this version:
 ------------------------
