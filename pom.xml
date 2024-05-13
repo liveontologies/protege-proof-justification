@@ -304,7 +304,7 @@ Explanation plug-in with them.
 						</goals>
 					</execution>
 					<execution>
-						<!-- set the current year from the build timestamp, used in README.txt -->
+						<!-- set the current year from the build timestamp, used in README.md -->
 						<id>set-current-year</id>
 						<goals>
 							<goal>timestamp-property</goal>
@@ -349,7 +349,7 @@ Explanation plug-in with them.
 									<filtering>true</filtering>
 									<includes>
 										<include>p5.update.properties</include>
-										<include>README.txt</include>
+										<include>README.md</include>
 									</includes>
 								</resource>
 							</resources>
