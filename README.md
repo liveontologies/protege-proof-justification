@@ -34,7 +34,7 @@ To develop extensions to be used with this plug-in, use the following Maven depe
 
 ```
 <dependency>
-  <groupId>org.liveontologies</groupId>
+  <groupId>io.github.liveontologies</groupId>
   <artifactId>protege-proof-justification</artifactId>
   <version>${releasedVersion.version}</version>
 </dependency>
@@ -54,7 +54,7 @@ the Sonatype OSSRH snapshot repository either to your `pom.xml` or `settings.xml
 <repositories>
   <repository>
     <id>ossrh-snapshots</id>
-    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     <snapshots>
       <enabled>true</enabled>
     </snapshots>

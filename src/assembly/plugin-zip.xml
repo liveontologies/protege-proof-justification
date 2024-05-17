@@ -28,7 +28,7 @@
 		<dependencySet>
 			<scope>provided</scope>
 			<includes>
-				<include>${project.groupId}:*:*</include>
+				<include>org.liveontologies:*:*</include>
 			</includes>
 			<useStrictFiltering>true</useStrictFiltering>
 			<useProjectArtifact>false</useProjectArtifact>

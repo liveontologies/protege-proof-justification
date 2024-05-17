@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.liveontologies</groupId>
+	<groupId>io.github.liveontologies</groupId>
 	<artifactId>protege-proof-justification</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
@@ -130,8 +130,8 @@ This service computes justifications from proofs using the
 	<distributionManagement>
 		<downloadUrl>https://github.com/liveontologies/${project.artifactId}/releases</downloadUrl>
 		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<id>ossrh-snapshots</id>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	
