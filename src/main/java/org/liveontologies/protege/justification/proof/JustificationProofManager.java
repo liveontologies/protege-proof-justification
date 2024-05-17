@@ -55,7 +55,7 @@ public class JustificationProofManager {
 
 	/**
 	 * the current proof plus justification of inferences for
-	 * the{@link #entailment_}
+	 * the {@link #entailment_}
 	 */
 	private JustifiedProof<?> justifierProof_ = null;
 
@@ -94,10 +94,14 @@ public class JustificationProofManager {
 	}
 
 	/**
-	 * Sets the {@link JustificationProofService} for the entailment is
-	 * obtained; it should be among those returned by {@link #getServices()}
+	 * Sets the {@link JustificationProofService} to be used for this
+	 * entailment; it should be among those returned by {@link #getServices()}
 	 * 
+	 * @param <I>
+	 *            the type of inferences used in the proofs
 	 * @param proofService
+	 *            the {@link JustificationProofService} to be used for computing
+	 *            justifications for this entailment
 	 * 
 	 * @see #getEntailment()
 	 * @see #getServices()
@@ -133,7 +137,7 @@ public class JustificationProofManager {
 	public interface ChangeListener {
 		/**
 		 * fired when a subsequent call to
-		 * {@link JustificationProofManager#getJustifiedProof()} would return a
+		 * {@link JustificationProofManager#getJustifiedProof()} could return a
 		 * different result
 		 */
 		void justifiedProofChanged();

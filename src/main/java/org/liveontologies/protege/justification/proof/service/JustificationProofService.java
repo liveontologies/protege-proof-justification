@@ -46,7 +46,14 @@ public abstract class JustificationProofService<I extends Inference<?>>
 		implements ProtegePluginInstance, InferenceJustifier<I, Set<OWLAxiom>> {
 
 	/**
+	 * Checks whether this service is able provide a proof for the given
+	 * entailment. The check should be fast and cheap because it may be
+	 * performed frequently for many axioms, e.g., during the repaint of the
+	 * Protege UI. Preferably the decision should be made by inspecting the
+	 * structure of the entailment.
+	 * 
 	 * @param entailment
+	 *            the {@link OWLAxiom} to be checked
 	 * @return {@code true} if this service can provide a proof for the given
 	 *         entailed {@link OWLAxiom}; the subsequent call of
 	 *         {@link #computeProof(OWLAxiom)} should return such a proof
@@ -82,6 +89,7 @@ public abstract class JustificationProofService<I extends Inference<?>>
 	 * Provides a justification for each inference used in the proof
 	 * 
 	 * @param inference
+	 *            the {@link Inference} to be justified
 	 * @return the set of {@link OWLAxiom}s occurring in the ontology that have
 	 *         been used to trigger the given inference, that is, without these
 	 *         axioms the inference would not be valid. The axioms of the
