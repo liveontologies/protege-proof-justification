@@ -19,17 +19,18 @@
  * limitations under the License.
  * #L%
  */
-package org.liveontologies.protege.justification.proof;
+package io.github.liveontologies.protege.justification.proof;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.liveontologies.protege.justification.proof.service.JustificationProofService;
 import org.liveontologies.puli.Inference;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.github.liveontologies.protege.justification.proof.service.JustificationProofService;
 
 /**
  * Used to keep track of the inputs for justification computation for a

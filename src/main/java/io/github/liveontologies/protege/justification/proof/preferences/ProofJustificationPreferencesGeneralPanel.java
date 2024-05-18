@@ -1,4 +1,4 @@
-package org.liveontologies.protege.justification.proof.preferences;
+package io.github.liveontologies.protege.justification.proof.preferences;
 
 /*-
  * #%L
@@ -30,10 +30,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-import org.liveontologies.protege.justification.proof.JustificationProofServiceManager;
-import org.liveontologies.protege.justification.proof.service.JustificationProofService;
 import org.protege.editor.core.ui.preferences.PreferencesLayoutPanel;
 import org.protege.editor.owl.ui.preferences.OWLPreferencesPanel;
+
+import io.github.liveontologies.protege.justification.proof.JustificationProofServiceManager;
+import io.github.liveontologies.protege.justification.proof.service.JustificationProofService;
 
 public class ProofJustificationPreferencesGeneralPanel
 		extends OWLPreferencesPanel {

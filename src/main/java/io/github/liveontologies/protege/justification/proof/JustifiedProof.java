@@ -1,4 +1,4 @@
-package org.liveontologies.protege.justification.proof;
+package io.github.liveontologies.protege.justification.proof;
 
 /*-
  * #%L

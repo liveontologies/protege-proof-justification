@@ -1,4 +1,4 @@
-package org.liveontologies.protege.justification.proof;
+package io.github.liveontologies.protege.justification.proof;
 
 /*-
  * #%L
@@ -31,7 +31,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.liveontologies.protege.justification.proof.service.JustificationProofService;
+import io.github.liveontologies.protege.justification.proof.service.JustificationProofService;
 
 class JustificationProofServiceSelectionPanel extends JPanel {
 

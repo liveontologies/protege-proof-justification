@@ -1,4 +1,4 @@
-package org.liveontologies.protege.justification.proof.preferences;
+package io.github.liveontologies.protege.justification.proof.preferences;
 
 /*-
  * #%L
@@ -25,21 +25,32 @@ package org.liveontologies.protege.justification.proof.preferences;
 
 import org.eclipse.core.runtime.IExtension;
 import org.protege.editor.core.editorkit.EditorKit;
-import org.protege.editor.core.plugin.AbstractPluginLoader;
+import org.protege.editor.core.plugin.AbstractProtegePlugin;
+import org.protege.editor.core.ui.preferences.PreferencesPanel;
+import org.protege.editor.core.ui.preferences.PreferencesPanelPlugin;
 
-public class ProofPreferencesPanelPluginLoader extends AbstractPluginLoader<ProofPreferencesPanelPlugin> {
+public class ProofPreferencesPanelPlugin extends AbstractProtegePlugin<PreferencesPanel>
+implements PreferencesPanelPlugin {
+
 	private final EditorKit kit;
-	
-	private static final String ID = "JustificationProofPreferences";
-	private static final String KEY = "org.liveontologies.protege.justification.proof";
 
-	public ProofPreferencesPanelPluginLoader(EditorKit kit) {
-		super(KEY, ID);
+	public static final String LABEL_PARAM = "label";
+	
+	public ProofPreferencesPanelPlugin(EditorKit kit, IExtension extension) {
+		super(extension);
 		this.kit = kit;
 	}
 
 	@Override
-	protected ProofPreferencesPanelPlugin createInstance(IExtension extension) {
-		return new ProofPreferencesPanelPlugin(kit, extension);
+	public String getLabel() {
+		return getPluginProperty(LABEL_PARAM);
+	}
+
+	@Override
+	public PreferencesPanel newInstance()
+			throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+		PreferencesPanel panel = super.newInstance();
+		panel.setup(getLabel(), kit);
+		return panel;
 	}
 }

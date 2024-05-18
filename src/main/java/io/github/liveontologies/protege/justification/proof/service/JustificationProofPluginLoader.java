@@ -1,4 +1,4 @@
-package org.liveontologies.protege.justification.proof.service;
+package io.github.liveontologies.protege.justification.proof.service;
 
 /*-
  * #%L
@@ -23,39 +23,32 @@ package org.liveontologies.protege.justification.proof.service;
  */
 
 import org.eclipse.core.runtime.IExtension;
-import org.protege.editor.core.plugin.AbstractProtegePlugin;
+import org.protege.editor.core.plugin.AbstractPluginLoader;
 import org.protege.editor.owl.OWLEditorKit;
 
 /**
- * Instantiates the plugin which is based on specified prover service
- * 
+ * Load the available specified {@link JustificationProofService} plugins
+ *
  * @author Alexander Date: 23/02/2017
  */
 
-public class ProverPlugin extends AbstractProtegePlugin<JustificationProofService<?>> {
-
-	public static final String KEY = "org.liveontologies.protege.justification.proof";
-	public static final String ID = "JustificationProofService";
+public class JustificationProofPluginLoader extends AbstractPluginLoader<ProverPlugin> {
 
 	private final OWLEditorKit editorKit_;
 
 	/**
-	 * Constructs a new plugin instance
+	 * Constructs new plugin instance
 	 * 
 	 * @param editorKit
-	 * 			  owl-related parts of Protege
-	 * @param extension
-	 *            plugin extension
-	 * 
+	 *            owl-related parts of Protege
 	 */
-	public ProverPlugin(OWLEditorKit editorKit, IExtension extension) {
-		super(extension);
+	public JustificationProofPluginLoader(OWLEditorKit editorKit) {
+		super(ProverPlugin.KEY, ProverPlugin.ID);
 		editorKit_ = editorKit;
 	}
 
 	@Override
-	public JustificationProofService<?> newInstance() throws ClassNotFoundException,
-			IllegalAccessException, InstantiationException {
-		return super.newInstance().setup(editorKit_);
+	protected ProverPlugin createInstance(IExtension extension) {
+		return new ProverPlugin(editorKit_, extension);
 	}
 }

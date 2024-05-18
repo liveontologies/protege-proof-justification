@@ -1,4 +1,4 @@
-package org.liveontologies.protege.justification.proof;
+package io.github.liveontologies.protege.justification.proof;
 
 /*-
  * #%L
@@ -25,11 +25,12 @@ package org.liveontologies.protege.justification.proof;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.liveontologies.protege.justification.proof.service.JustificationProofPluginLoader;
-import org.liveontologies.protege.justification.proof.service.JustificationProofService;
-import org.liveontologies.protege.justification.proof.service.ProverPlugin;
 import org.protege.editor.core.Disposable;
 import org.protege.editor.owl.OWLEditorKit;
+
+import io.github.liveontologies.protege.justification.proof.service.JustificationProofPluginLoader;
+import io.github.liveontologies.protege.justification.proof.service.JustificationProofService;
+import io.github.liveontologies.protege.justification.proof.service.ProverPlugin;
 
 /**
  * Keeps track of the available {@link JustificationProofService} plugins.

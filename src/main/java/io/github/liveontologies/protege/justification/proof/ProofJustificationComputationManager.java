@@ -1,10 +1,13 @@
-package org.liveontologies.protege.justification.proof;
+package io.github.liveontologies.protege.justification.proof;
 
+import javax.swing.JPanel;
+
+import org.liveontologies.protege.explanation.justification.service.JustificationComputation;
 import org.liveontologies.protege.explanation.justification.service.JustificationComputation.InterruptMonitor;
 
 /*-
  * #%L
- * Protege Proof Justification
+ * Protege Proof Justification Explanation
  * $Id:$
  * $HeadURL:$
  * %%
@@ -25,50 +28,41 @@ import org.liveontologies.protege.explanation.justification.service.Justificatio
  */
 
 import org.liveontologies.protege.explanation.justification.service.JustificationComputationManager;
-import org.liveontologies.protege.explanation.justification.service.JustificationComputationService;
 import org.liveontologies.protege.explanation.justification.service.JustificationListener;
-import org.liveontologies.protege.justification.proof.service.JustificationProofService;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * @author Alexander Stupnikov Date: 10/02/2017
+ * 
+ * @author Yevgeny Kazakov
  */
+public class ProofJustificationComputationManager
+		extends JustificationComputationManager
+		implements JustificationProofManager.ChangeListener {
 
-public class ProofBasedJustificationComputationService
-		extends JustificationComputationService {
+	private final JustificationProofManager manager_;
 
-	JustificationProofServiceManager manager_;
-
-	@Override
-	public JustificationComputationManager createComputationManager(
-			OWLAxiom entailment, JustificationListener listener,
-			InterruptMonitor monitor) {
-		return new ProofJustificationComputationManager(entailment, listener,
-				monitor, manager_);
+	public ProofJustificationComputationManager(OWLAxiom entailment,
+			JustificationListener listener, InterruptMonitor monitor,
+			JustificationProofServiceManager manager) {
+		super(entailment, listener, monitor);
+		manager_ = new JustificationProofManager(manager, entailment);
+		manager_.addListener(this);
 	}
 
 	@Override
-	public void initialise() throws Exception {
-		manager_ = JustificationProofServiceManager.get(getOWLEditorKit());
+	public JPanel getSettingsPanel() {
+		return new JustificationProofServiceSelectionPanel(manager_);
 	}
 
 	@Override
-	public boolean canJustify(OWLAxiom entailment) {
-		for (JustificationProofService<?> service : manager_.getServices()) {
-			if (service.hasProof(entailment)) {
-				return true;
-			}
-		}
-		return false;
+	public JustificationComputation getComputation() {
+		return new ProofJustificationComputation(manager_,
+				getJustificationListener(), getInterruptMonitor());
 	}
 
 	@Override
-	public void dispose() {
+	public void justifiedProofChanged() {
+		notifyJustificationsOutdated();
 	}
-
-	@Override
-	public String getName() {
-		return "Proof Justifications";
-	}
-
 }

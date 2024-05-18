@@ -10,21 +10,21 @@
         id="JustificationService"
         point="org.liveontologies.protege.explanation.justification.JustificationComputationService">
         <name value="Justification Service" />
-        <class value="org.liveontologies.protege.justification.proof.ProofBasedJustificationComputationService" />
+        <class value="io.github.liveontologies.protege.justification.proof.ProofBasedJustificationComputationService" />
     </extension>
 
     <extension
         id="ProofJustificationPreferences"
         point="org.liveontologies.protege.explanation.justification.JustificationComputationPreferences">
         <label value="Proof Justifications" />
-        <class value="org.liveontologies.protege.justification.proof.preferences.ProofPrefPanel" />
+        <class value="io.github.liveontologies.protege.justification.proof.preferences.ProofPrefPanel" />
     </extension>
 
     <extension
         id="ProofJustificationGeneralPreferences"
-        point="org.liveontologies.protege.justification.proof.JustificationProofPreferences">
+        point="io.github.liveontologies.protege.justification.proof.JustificationProofPreferences">
         <label value="General" />
-        <class value="org.liveontologies.protege.justification.proof.preferences.ProofJustificationPreferencesGeneralPanel" />
+        <class value="io.github.liveontologies.protege.justification.proof.preferences.ProofJustificationPreferencesGeneralPanel" />
     </extension>
 
 </plugin>

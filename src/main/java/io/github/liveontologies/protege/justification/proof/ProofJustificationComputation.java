@@ -19,7 +19,7 @@
  * limitations under the License.
  * #L%
  */
-package org.liveontologies.protege.justification.proof;
+package io.github.liveontologies.protege.justification.proof;
 
 import java.util.Set;
 
