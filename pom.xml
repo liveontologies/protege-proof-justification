@@ -71,7 +71,7 @@ This service computes justifications from proofs using the
 			${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}
 		</release.version>
 		<!-- the path to update.properties and version-info.txt for Protege auto-update -->
-		<update.url>https://raw.githubusercontent.com/liveontologies/${project.artifactId}/release</update.url>
+		<update.url>https://raw.githubusercontent.com/liveontologies/${project.artifactId}/p5update</update.url>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
