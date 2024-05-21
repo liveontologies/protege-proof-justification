@@ -516,21 +516,6 @@ This service computes justifications from proofs using the
 							<manifestLocation>META-INF</manifestLocation>
 						</configuration>
 					</plugin>
-					<plugin>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>copy-dependencies</id>
-								<phase>package</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<excludeScope>provided</excludeScope>
-						</configuration>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
