@@ -438,7 +438,7 @@ This service computes justifications from proofs using the
 				<executions>
 					<execution>
 						<id>plugin-zip</id>
-						<phase>install</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>

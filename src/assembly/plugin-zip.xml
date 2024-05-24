@@ -31,8 +31,12 @@
 				<include>org.liveontologies:*:*</include>
 			</includes>
 			<useStrictFiltering>true</useStrictFiltering>
-			<useProjectArtifact>true</useProjectArtifact>
+			<useProjectArtifact>false</useProjectArtifact>
 			<outputFileNameMapping>${artifact.groupId}.${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+		</dependencySet>
+		<dependencySet>
+			<useProjectArtifact>true</useProjectArtifact>
+			<outputFileNameMapping>${pluginId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
 		</dependencySet>
 	</dependencySets>
 </assembly>
