@@ -1,5 +1,5 @@
 The Live Ontologies Project team is pleased to announce 
-        the Protege Proof Justification 0.0.1 release!
+        the Protege Proof Justification 0.1.1 release!
 
 A plug-in for the [Protégé Desktop](https://protege.stanford.edu) ontology editor that provides a service for the
 [Protege Justification Explanation](https://github.com/liveontologies/protege-justification-explanation) plug-in. 
