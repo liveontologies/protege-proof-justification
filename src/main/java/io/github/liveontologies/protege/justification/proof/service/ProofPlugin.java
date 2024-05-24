@@ -27,12 +27,12 @@ import org.protege.editor.core.plugin.AbstractProtegePlugin;
 import org.protege.editor.owl.OWLEditorKit;
 
 /**
- * Instantiates the plugin which is based on specified prover service
+ * Instantiates the plugin which is based on specified proof service
  * 
  * @author Alexander Date: 23/02/2017
  */
 
-public class ProverPlugin extends AbstractProtegePlugin<JustificationProofService<?>> {
+public class ProofPlugin extends AbstractProtegePlugin<JustificationProofService<?>> {
 
 	public static final String KEY = "io.github.liveontologies.protege.justification.proof";
 	public static final String ID = "JustificationProofService";
@@ -49,7 +49,7 @@ public class ProverPlugin extends AbstractProtegePlugin<JustificationProofServic
 	 *            plugin extension
 	 * 
 	 */
-	public ProverPlugin(OWLEditorKit editorKit, IExtension extension) {
+	public ProofPlugin(OWLEditorKit editorKit, IExtension extension) {
 		super(extension);
 		editorKit_ = editorKit;
 	}

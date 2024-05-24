@@ -30,7 +30,7 @@ import org.protege.editor.owl.OWLEditorKit;
 
 import io.github.liveontologies.protege.justification.proof.service.JustificationProofPluginLoader;
 import io.github.liveontologies.protege.justification.proof.service.JustificationProofService;
-import io.github.liveontologies.protege.justification.proof.service.ProverPlugin;
+import io.github.liveontologies.protege.justification.proof.service.ProofPlugin;
 
 /**
  * Keeps track of the available {@link JustificationProofService} plugins.
@@ -52,7 +52,7 @@ public class JustificationProofServiceManager implements Disposable {
 		this.services_ = new ArrayList<JustificationProofService<?>>();
 		JustificationProofPluginLoader loader = new JustificationProofPluginLoader(
 				kit_);
-		for (ProverPlugin plugin : loader.getPlugins()) {
+		for (ProofPlugin plugin : loader.getPlugins()) {
 			JustificationProofService<?> service = plugin.newInstance();
 			service.initialise();
 			services_.add(service);
