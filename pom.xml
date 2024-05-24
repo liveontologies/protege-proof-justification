@@ -326,6 +326,12 @@ This service computes justifications from proofs using the
 							<locale>en,US</locale>
 						</configuration>
 					</execution>
+					<execution>
+						<id>released-version</id>
+						<goals>
+							<goal>released-version</goal>
+						</goals>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
