@@ -36,6 +36,7 @@ public class ProverPlugin extends AbstractProtegePlugin<JustificationProofServic
 
 	public static final String KEY = "io.github.liveontologies.protege.justification.proof";
 	public static final String ID = "JustificationProofService";
+	public static final String NAME = "name";
 
 	private final OWLEditorKit editorKit_;
 
@@ -52,10 +53,14 @@ public class ProverPlugin extends AbstractProtegePlugin<JustificationProofServic
 		super(extension);
 		editorKit_ = editorKit;
 	}
+	
+	public String getName() {
+		return getPluginProperty(NAME);
+	}
 
 	@Override
 	public JustificationProofService<?> newInstance() throws ClassNotFoundException,
 			IllegalAccessException, InstantiationException {
-		return super.newInstance().setup(editorKit_);
+		return super.newInstance().setup(editorKit_, getId(), getName());
 	}
 }

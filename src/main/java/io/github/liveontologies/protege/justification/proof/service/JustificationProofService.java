@@ -101,23 +101,28 @@ public abstract class JustificationProofService<I extends Inference<?>>
 	@Override
 	public abstract Set<OWLAxiom> getJustification(I inference);
 
-	JustificationProofService<I> setup(OWLEditorKit kit) {
-		kit_ = kit;
+	JustificationProofService<I> setup(OWLEditorKit kit, String pluginId, String name) {
+		this.kit_ = kit;
+		this.pluginId_ = pluginId;
+		this.name_ = name;		
 		return this;
 	}
 
 	private OWLEditorKit kit_;
+	private String pluginId_;
+	private String name_;
 
 	public OWLEditorKit getEditorKit() {
 		return kit_;
 	}
 
-	/**
-	 * Should return a name for the plugin
-	 * 
-	 * @return the name to be displayed in available plugins list
-	 */
-	public abstract String getName();
+	public String getPluginId() {
+		return pluginId_;
+	}
+
+	public String getName() {
+		return name_;
+	}
 
 	@Override
 	public String toString() {
